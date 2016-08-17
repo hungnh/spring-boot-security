@@ -12,14 +12,15 @@
     <artifactId>model</artifactId>
 
     <dependencies>
-        <!-- Section internal -->
+        <!-- tag :: DTO -->
         <dependency>
             <groupId>uet.hungnh.template</groupId>
             <artifactId>dto</artifactId>
             <version>1.0.0</version>
         </dependency>
+        <!-- end :: DTO -->
 
-        <!-- Section external -->
+        <!-- tag :: Spring Data -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-rest</artifactId>
@@ -28,15 +29,22 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
+        <!-- end :: Spring Data -->
+
+        <!-- tag :: PostgreSQL-->
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
         </dependency>
+        <!-- end :: PostgreSQL-->
+
+        <!-- tag :: other libs -->
         <dependency>
             <groupId>commons-lang</groupId>
             <artifactId>commons-lang</artifactId>
             <version>2.6</version>
         </dependency>
+        <!-- end :: other libs -->
     </dependencies>
 
 </project>
