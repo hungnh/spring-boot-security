@@ -8,8 +8,8 @@ import java.util.Date;
 public abstract class BaseEntity implements Serializable {
     @Id
     @Column(nullable = false)
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    protected Integer id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    protected Long id;
 
     @Column(nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
@@ -28,11 +28,11 @@ public abstract class BaseEntity implements Serializable {
         updatedDate = new Date();
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

@@ -10,6 +10,9 @@ import javax.persistence.UniqueConstraint;
 @Entity
 @Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"name"}, name = "sample_name_unq")})
 public class Sample extends BaseEntity {
+
+    private static final long serialVersionUID = 1427168249598037052L;
+
     @Column(nullable = false)
     private String name;
 
