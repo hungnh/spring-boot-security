@@ -1,4 +1,4 @@
-package uet.hungnh.template.config.security;
+package uet.hungnh.template.config.security.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -8,9 +8,6 @@ import org.springframework.stereotype.Service;
 import uet.hungnh.template.model.User;
 import uet.hungnh.template.repo.UserRepository;
 
-/**
- * Created by hungnh on 18/08/2016.
- */
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
 

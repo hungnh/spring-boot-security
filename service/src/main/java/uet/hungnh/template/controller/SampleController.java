@@ -6,11 +6,16 @@ import uet.hungnh.template.dto.SampleDTO;
 import uet.hungnh.template.service.ISampleService;
 
 @RestController
-@RequestMapping(value = "/")
+@RequestMapping(value = "/api/sample")
 public class SampleController {
 
     @Autowired
     private ISampleService sampleService;
+
+    @RequestMapping(method = RequestMethod.GET)
+    public String sample() {
+        return "Sample OK!";
+    }
 
     @RequestMapping(method = RequestMethod.PUT)
     public SampleDTO create(@RequestBody SampleDTO sampleDTO) {
