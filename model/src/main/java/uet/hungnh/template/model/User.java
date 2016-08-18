@@ -18,6 +18,17 @@ public class User implements Serializable {
     private String email;
     private int enabled;
 
+    public User() {
+    }
+
+    public User(User user) {
+        this.userId = user.userId;
+        this.username = user.username;
+        this.email = user.email;
+        this.password = user.password;
+        this.enabled = user.enabled;
+    }
+
     public Long getUserId() {
         return userId;
     }
