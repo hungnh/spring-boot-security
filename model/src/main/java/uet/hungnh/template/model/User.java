@@ -1,18 +1,15 @@
 package uet.hungnh.template.model;
 
+import uet.hungnh.template.model.base.BaseEntity;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
 @Table
-public class User implements Serializable {
+public class User extends BaseEntity {
 
     private static final long serialVersionUID = -3236711771882631639L;
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long userId;
-
     private String username;
     private String password;
     private String email;
@@ -22,19 +19,11 @@ public class User implements Serializable {
     }
 
     public User(User user) {
-        this.userId = user.userId;
+        this.id = user.id;
         this.username = user.username;
         this.email = user.email;
         this.password = user.password;
         this.enabled = user.enabled;
-    }
-
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
     }
 
     public String getUsername() {

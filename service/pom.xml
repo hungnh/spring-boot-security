@@ -43,6 +43,13 @@
         </dependency>
         <!-- end :: Orika mapper-->
 
+        <!-- tag :: Ehcache -->
+        <dependency>
+            <groupId>net.sf.ehcache</groupId>
+            <artifactId>ehcache</artifactId>
+        </dependency>
+        <!-- end :: Ehcache -->
+
         <!-- tag :: test -->
         <dependency>
             <groupId>org.springframework.boot</groupId>

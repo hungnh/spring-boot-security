@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="http://www.ehcache.org/ehcache.xsd">
+    <cache name="auth-token-cache"
+           maxEntriesLocalHeap="200"
+           timeToLiveSeconds="600">
+    </cache>
+</ehcache>
