@@ -94,7 +94,9 @@ public class AuthenticationFilter extends GenericFilterBean {
 
         Authentication authenticationResult = tryToAuthenticateWithUsernameAndPassword(username, password);
         SecurityContextHolder.getContext().setAuthentication(authenticationResult);
+
         response.setStatus(HttpServletResponse.SC_OK);
+
         TokenResponse tokenResponse = new TokenResponse(authenticationResult.getDetails().toString());
         String tokenResponseJson = (new ObjectMapper().writeValueAsString(tokenResponse));
         response.addHeader("Content-Type", "application/json");
@@ -108,7 +110,7 @@ public class AuthenticationFilter extends GenericFilterBean {
 
     private Authentication tryToAuthenticate(Authentication authenticationRequest) {
         Authentication authenticationResult = authenticationManager.authenticate(authenticationRequest);
-        if (authenticationRequest == null || !authenticationRequest.isAuthenticated()) {
+        if (authenticationResult == null || !authenticationResult.isAuthenticated()) {
             throw new InternalAuthenticationServiceException("Unable to authenticate user for provided credentials!");
         }
         logger.debug("User is successfully authenticated!");

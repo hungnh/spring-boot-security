@@ -6,7 +6,7 @@ import uet.hungnh.template.dto.SampleDTO;
 import uet.hungnh.template.service.ISampleService;
 
 @RestController
-@RequestMapping(value = "/api/sample")
+@RequestMapping(value = APIController.API_ENDPOINT)
 public class SampleController {
 
     @Autowired

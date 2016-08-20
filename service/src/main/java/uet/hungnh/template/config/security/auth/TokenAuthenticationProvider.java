@@ -19,14 +19,18 @@ public class TokenAuthenticationProvider implements AuthenticationProvider {
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-        Optional token = Optional.ofNullable(authentication.getPrincipal());
-        if (!token.isPresent() || token.get().toString().isEmpty()) {
+
+        Optional<String> token = (Optional) authentication.getPrincipal();
+
+        if (!token.isPresent() || token.get().isEmpty()) {
             throw new BadCredentialsException("Invalid token!");
         }
-        if (!tokenService.contains(token.get().toString())) {
+
+        if (!tokenService.contains(token.get())) {
             throw new BadCredentialsException("Token is invalid or expired!");
         }
-        return tokenService.retrieve(token.get().toString());
+
+        return tokenService.retrieve(token.get());
     }
 
     @Override

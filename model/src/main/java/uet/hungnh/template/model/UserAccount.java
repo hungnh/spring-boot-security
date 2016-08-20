@@ -3,28 +3,15 @@ package uet.hungnh.template.model;
 import uet.hungnh.template.model.base.BaseEntity;
 
 import javax.persistence.*;
-import java.io.Serializable;
 
 @Entity
 @Table
-public class User extends BaseEntity {
+public class UserAccount extends BaseEntity {
 
     private static final long serialVersionUID = -3236711771882631639L;
     private String username;
     private String password;
     private String email;
-    private int enabled;
-
-    public User() {
-    }
-
-    public User(User user) {
-        this.id = user.id;
-        this.username = user.username;
-        this.email = user.email;
-        this.password = user.password;
-        this.enabled = user.enabled;
-    }
 
     public String getUsername() {
         return username;
@@ -48,13 +35,5 @@ public class User extends BaseEntity {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public int getEnabled() {
-        return enabled;
-    }
-
-    public void setEnabled(int enabled) {
-        this.enabled = enabled;
     }
 }
