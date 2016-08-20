@@ -10,13 +10,17 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.AuthenticationEntryPoint;
-import org.springframework.security.web.authentication.AuthenticationFailureHandler;
-import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
-import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
-import uet.hungnh.template.config.security.auth.*;
-import uet.hungnh.template.config.security.token.TokenService;
+import uet.hungnh.template.config.security.auth.AuthenticationFilter;
+import uet.hungnh.template.config.security.auth.UnauthorizedEntryPoint;
+import uet.hungnh.template.config.security.provider.TokenAuthenticationProvider;
+import uet.hungnh.template.config.security.provider.UsernamePasswordAuthenticationProvider;
+import uet.hungnh.template.config.security.service.TokenService;
+import uet.hungnh.template.config.security.service.UsernamePasswordAuthenticationService;
 import uet.hungnh.template.controller.APIController;
+
+import static uet.hungnh.template.config.security.constants.SecurityConstants.ALL_ROLES;
+import static uet.hungnh.template.config.security.constants.SecurityConstants.ROLE_USER;
 
 @Configuration
 @EnableWebSecurity
@@ -41,8 +45,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                     .authorizeRequests()
-                    .antMatchers(apiEndpoints()).hasAuthority("ROLE_USER")
-                    .antMatchers(APIController.AUTHENTICATION_ENDPOINT).hasAnyAuthority("ROLE_ANONYMOUS", "ROLE_USER", "ROLE_ADMIN")
+                .antMatchers(apiEndpoints()).hasAuthority(ROLE_USER)
+                .antMatchers(APIController.AUTHENTICATION_ENDPOINT).hasAnyAuthority(ALL_ROLES)
                     .anyRequest().authenticated()
                 .and()
                     .exceptionHandling().authenticationEntryPoint(unauthorizedEntryPoint())
@@ -83,6 +87,3 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return new UnauthorizedEntryPoint();
     }
 }
-
-// https://github.com/virgo47/restful-spring-security
-// https://virgo47.wordpress.com/2014/07/27/restful-spring-security-with-authentication-token/

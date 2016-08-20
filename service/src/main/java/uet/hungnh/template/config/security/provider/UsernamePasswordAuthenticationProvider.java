@@ -1,13 +1,14 @@
-package uet.hungnh.template.config.security.auth;
+package uet.hungnh.template.config.security.provider;
 
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
-import uet.hungnh.template.config.security.token.TokenService;
+import uet.hungnh.template.config.security.auth.AuthenticationToken;
+import uet.hungnh.template.config.security.service.TokenService;
+import uet.hungnh.template.config.security.service.UsernamePasswordAuthenticationService;
 
-import java.security.Principal;
 import java.util.Optional;
 
 public class UsernamePasswordAuthenticationProvider implements AuthenticationProvider {

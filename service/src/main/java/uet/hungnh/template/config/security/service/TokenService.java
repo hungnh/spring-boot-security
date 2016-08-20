@@ -1,4 +1,4 @@
-package uet.hungnh.template.config.security.token;
+package uet.hungnh.template.config.security.service;
 
 import net.sf.ehcache.Cache;
 import net.sf.ehcache.CacheManager;

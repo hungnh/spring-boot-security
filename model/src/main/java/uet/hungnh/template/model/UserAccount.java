@@ -2,7 +2,8 @@ package uet.hungnh.template.model;
 
 import uet.hungnh.template.model.base.BaseEntity;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
 @Entity
 @Table

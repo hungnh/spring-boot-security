@@ -11,7 +11,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationToken;
 import org.springframework.web.filter.GenericFilterBean;
 import org.springframework.web.util.UrlPathHelper;
-import uet.hungnh.template.config.security.token.TokenResponse;
+import uet.hungnh.template.config.security.model.TokenResponse;
 import uet.hungnh.template.controller.APIController;
 
 import javax.security.sasl.AuthenticationException;
