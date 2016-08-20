@@ -19,9 +19,6 @@ import uet.hungnh.template.config.security.service.TokenService;
 import uet.hungnh.template.config.security.service.UsernamePasswordAuthenticationService;
 import uet.hungnh.template.controller.APIController;
 
-import static uet.hungnh.template.config.security.constants.SecurityConstants.ALL_ROLES;
-import static uet.hungnh.template.config.security.constants.SecurityConstants.ROLE_USER;
-
 @Configuration
 @EnableWebSecurity
 @ComponentScan(
@@ -45,8 +42,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                     .authorizeRequests()
-                    .antMatchers(apiEndpoints()).hasAuthority(ROLE_USER)
-                    .antMatchers(APIController.AUTHENTICATION_ENDPOINT).hasAnyAuthority(ALL_ROLES)
+                .antMatchers(APIController.AUTHENTICATION_ENDPOINT).permitAll()
                     .anyRequest().authenticated()
                 .and()
                     .exceptionHandling().authenticationEntryPoint(unauthorizedEntryPoint())
@@ -56,10 +52,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         ;
 
         http.addFilterBefore(new AuthenticationFilter(authenticationManager()), BasicAuthenticationFilter.class);
-    }
-
-    private String[] apiEndpoints() {
-        return new String[]{APIController.API_ENDPOINT};
     }
 
     @Bean
