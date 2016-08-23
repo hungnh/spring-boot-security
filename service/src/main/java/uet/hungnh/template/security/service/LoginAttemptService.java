@@ -16,12 +16,14 @@ public class LoginAttemptService {
 
     public LoginAttemptService() {
         super();
-        attemptsCache = CacheBuilder.newBuilder().expireAfterWrite(1, TimeUnit.HOURS).build(new CacheLoader<String, Integer>() {
-            @Override
-            public Integer load(String key) throws Exception {
-                return 0;
-            }
-        });
+        attemptsCache = CacheBuilder.newBuilder()
+                .expireAfterWrite(1, TimeUnit.HOURS)
+                .build(new CacheLoader<String, Integer>() {
+                    @Override
+                    public Integer load(String key) throws Exception {
+                        return 0;
+                    }
+                });
     }
 
     public void loginSucceeded(String key) {

@@ -19,9 +19,13 @@ import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import uet.hungnh.template.security.AuthenticationFilter;
 import uet.hungnh.template.security.provider.TokenAuthenticationProvider;
-import uet.hungnh.template.security.provider.UsernamePasswordAuthenticationProvider;
+import uet.hungnh.template.security.service.ITokenService;
+import uet.hungnh.template.security.service.impl.InMemoryTokenService;
 
 import javax.servlet.http.HttpServletResponse;
+
+import static uet.hungnh.template.security.constants.SecurityConstants.AUTHENTICATION_ENDPOINT;
+import static uet.hungnh.template.security.constants.SecurityConstants.REGISTER_ENDPOINT;
 
 
 @Configuration
@@ -50,6 +54,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
+                    .authorizeRequests()
+                    .antMatchers(REGISTER_ENDPOINT).permitAll()
+                    .antMatchers(AUTHENTICATION_ENDPOINT).permitAll()
+                .and()
                     .exceptionHandling().authenticationEntryPoint(unauthorizedEntryPoint())
                 .and()
                     .logout()
@@ -60,12 +68,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     public AuthenticationProvider tokenAuthenticationProvider() {
-        return new TokenAuthenticationProvider();
+        return new TokenAuthenticationProvider(tokenService());
     }
 
     @Bean
-    public AuthenticationProvider usernamePasswordAuthenticationProvider() {
-        return new UsernamePasswordAuthenticationProvider();
+    public ITokenService tokenService() {
+        return new InMemoryTokenService();
     }
 
     @Bean

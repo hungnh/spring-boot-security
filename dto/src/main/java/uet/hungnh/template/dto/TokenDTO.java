@@ -1,13 +1,13 @@
-package uet.hungnh.template.security.model;
+package uet.hungnh.template.dto;
 
-public class TokenResponse {
+public class TokenDTO {
 
     private String token;
 
-    public TokenResponse() {
+    public TokenDTO() {
     }
 
-    public TokenResponse(String token) {
+    public TokenDTO(String token) {
         this.token = token;
     }
 

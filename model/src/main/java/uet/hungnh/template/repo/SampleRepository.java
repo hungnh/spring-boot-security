@@ -5,5 +5,5 @@ import org.springframework.stereotype.Repository;
 import uet.hungnh.template.model.Sample;
 
 @Repository
-public interface SampleRepository extends PagingAndSortingRepository<Sample, Integer> {
+public interface SampleRepository extends PagingAndSortingRepository<Sample, Long> {
 }

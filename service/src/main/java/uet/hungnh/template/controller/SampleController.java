@@ -27,7 +27,7 @@ public class SampleController {
     }
 
     @GetMapping(value = "/{id}")
-    public SampleDTO retrieve(@PathVariable("id") Integer id) {
+    public SampleDTO retrieve(@PathVariable("id") Long id) {
         return sampleService.retrieve(id);
     }
 
@@ -37,7 +37,7 @@ public class SampleController {
     }
 
     @DeleteMapping(value = "/{id}")
-    public void delete(@PathVariable("id") Integer id) {
+    public void delete(@PathVariable("id") Long id) {
         sampleService.delete(id);
     }
 }

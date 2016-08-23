@@ -34,13 +34,13 @@ public class SampleService implements ISampleService {
     }
 
     @Override
-    public SampleDTO retrieve(Integer id) {
+    public SampleDTO retrieve(Long id) {
         Sample sample = sampleRepository.findOne(id);
         return mapper.map(sample, SampleDTO.class);
     }
 
     @Override
-    public void delete(Integer id) {
+    public void delete(Long id) {
         sampleRepository.delete(id);
     }
 }

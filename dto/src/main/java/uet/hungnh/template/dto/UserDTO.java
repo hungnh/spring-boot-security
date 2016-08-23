@@ -1,18 +1,24 @@
-package uet.hungnh.template.model;
+package uet.hungnh.template.dto;
 
-import uet.hungnh.template.model.base.BaseEntity;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import static com.fasterxml.jackson.annotation.JsonProperty.Access.WRITE_ONLY;
 
-@Entity
-@Table
-public class UserAccount extends BaseEntity {
-
-    private static final long serialVersionUID = -3236711771882631639L;
+public class UserDTO {
+    private Long id;
     private String username;
-    private String password;
     private String email;
+
+    @JsonProperty(access = WRITE_ONLY)
+    private String password;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getUsername() {
         return username;

@@ -15,4 +15,5 @@ public class SecurityConstants {
 
     // ENDPOINTS
     public static final String AUTHENTICATION_ENDPOINT = "/authenticate";
+    public static final String REGISTER_ENDPOINT = "/register";
 }

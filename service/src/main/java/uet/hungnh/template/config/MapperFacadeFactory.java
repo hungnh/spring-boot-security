@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class MapperFacadeFactory implements FactoryBean<MapperFacade> {
+
     public MapperFacade getObject() throws Exception {
         return new DefaultMapperFactory.Builder().build().getMapperFacade();
     }

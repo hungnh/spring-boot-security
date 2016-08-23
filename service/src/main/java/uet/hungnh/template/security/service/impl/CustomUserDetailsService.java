@@ -1,16 +1,16 @@
-package uet.hungnh.template.security.service;
+package uet.hungnh.template.security.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.LockedException;
 import org.springframework.security.core.authority.AuthorityUtils;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import uet.hungnh.template.model.UserAccount;
-import uet.hungnh.template.repo.UserAccountRepository;
+import uet.hungnh.template.model.User;
+import uet.hungnh.template.repo.UserRepository;
+import uet.hungnh.template.security.service.LoginAttemptService;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -22,7 +22,7 @@ import static uet.hungnh.template.security.constants.SecurityConstants.ROLE_USER
 public class CustomUserDetailsService implements UserDetailsService {
 
     @Autowired
-    private UserAccountRepository userAccountRepository;
+    private UserRepository userRepository;
 
     @Autowired
     private LoginAttemptService loginAttemptService;
@@ -38,12 +38,12 @@ public class CustomUserDetailsService implements UserDetailsService {
             throw new LockedException("Your IP is blocked due to maximum login attempts is exceeded!");
         }
 
-        UserAccount user = userAccountRepository.findByUsername(username);
+        User user = userRepository.findByUsername(username);
         if (user == null) {
             throw new UsernameNotFoundException("No user found with username : " + username);
         }
 
-        return new User(
+        return new org.springframework.security.core.userdetails.User(
                 user.getUsername(),
                 user.getPassword(),
                 AuthorityUtils.commaSeparatedStringToAuthorityList(ROLE_USER)

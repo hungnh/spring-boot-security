@@ -7,7 +7,7 @@ public interface ISampleService {
 
     SampleDTO update(SampleDTO sampleDTO);
 
-    SampleDTO retrieve(Integer id);
+    SampleDTO retrieve(Long id);
 
-    void delete(Integer id);
+    void delete(Long id);
 }
