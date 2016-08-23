@@ -1,16 +1,20 @@
 package uet.hungnh.template.security.service.impl;
 
-import ma.glasnost.orika.MapperFacade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import uet.hungnh.template.dto.TokenDTO;
 import uet.hungnh.template.dto.UserDTO;
 import uet.hungnh.template.exception.ExceptionMessage;
 import uet.hungnh.template.exception.ServiceException;
 import uet.hungnh.template.model.User;
 import uet.hungnh.template.repo.UserRepository;
+import uet.hungnh.template.security.service.IAuthenticationService;
 import uet.hungnh.template.security.service.IRegistrationService;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
 
 @Service
 @Transactional(rollbackFor = Exception.class)
@@ -18,15 +22,17 @@ public class RegistrationService implements IRegistrationService {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+    @Autowired
+    private HttpServletRequest request;
+    @Autowired
+    private IAuthenticationService authenticationService;
 
     @Autowired
     private UserRepository userRepository;
 
-    @Autowired
-    private MapperFacade mapper;
-
     @Override
-    public UserDTO register(UserDTO userDTO) throws ServiceException {
+    public TokenDTO register(UserDTO userDTO) throws ServiceException, ServletException {
+
         if(emailExisted(userDTO.getEmail())) {
             throw new ServiceException(ExceptionMessage.EMAIL_EXISTED);
         }
@@ -35,12 +41,15 @@ public class RegistrationService implements IRegistrationService {
         user.setEmail(userDTO.getEmail());
         user.setUsername(userDTO.getEmail());
 
-        String encodedPassword = passwordEncoder.encode(userDTO.getPassword());
+        String rawPassword = userDTO.getPassword();
+        String encodedPassword = passwordEncoder.encode(rawPassword);
         user.setPassword(encodedPassword);
 
         userRepository.save(user);
 
-        return mapper.map(user, UserDTO.class);
+        request.login(user.getUsername(), rawPassword);
+
+        return authenticationService.authenticate();
     }
 
     private boolean emailExisted(String email) {
