@@ -16,16 +16,19 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.AuthenticationEntryPoint;
+import org.springframework.security.web.authentication.logout.LogoutHandler;
+import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import uet.hungnh.template.security.filter.AuthenticationFilter;
+import uet.hungnh.template.security.handler.CustomLogoutSuccessHandler;
+import uet.hungnh.template.security.handler.TokenClearingLogoutHandler;
 import uet.hungnh.template.security.provider.TokenAuthenticationProvider;
 import uet.hungnh.template.security.service.ITokenService;
 import uet.hungnh.template.security.service.impl.InMemoryTokenService;
 
 import javax.servlet.http.HttpServletResponse;
 
-import static uet.hungnh.template.security.constants.SecurityConstants.AUTHENTICATION_ENDPOINT;
-import static uet.hungnh.template.security.constants.SecurityConstants.REGISTER_ENDPOINT;
+import static uet.hungnh.template.security.constants.SecurityConstants.*;
 
 
 @Configuration
@@ -57,10 +60,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .authorizeRequests()
                     .antMatchers(REGISTER_ENDPOINT).permitAll()
                     .antMatchers(AUTHENTICATION_ENDPOINT).permitAll()
+                    .antMatchers(LOGOUT_ENDPOINT).permitAll()
                 .and()
                     .exceptionHandling().authenticationEntryPoint(unauthorizedEntryPoint())
                 .and()
                     .logout()
+                    .logoutSuccessHandler(logoutSuccessHandler())
+                    .logoutUrl(LOGOUT_ENDPOINT)
+                    .addLogoutHandler(tokenClearingLogoutHandler())
         ;
 
         http.addFilterBefore(new AuthenticationFilter(authenticationManager()), BasicAuthenticationFilter.class);
@@ -92,5 +99,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public AuthenticationEntryPoint unauthorizedEntryPoint() {
         return (request, response, authException) -> response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized");
+    }
+
+    @Bean
+    public LogoutSuccessHandler logoutSuccessHandler() {
+        return new CustomLogoutSuccessHandler();
+    }
+
+    @Bean
+    public LogoutHandler tokenClearingLogoutHandler() {
+        return new TokenClearingLogoutHandler();
     }
 }

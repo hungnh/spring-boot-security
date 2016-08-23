@@ -43,4 +43,9 @@ public class InMemoryTokenService implements ITokenService {
     public Authentication retrieve(String token) {
         return (Authentication) authTokenCache.get(token).getObjectValue();
     }
+
+    @Override
+    public void remove(String token) {
+        authTokenCache.remove(token);
+    }
 }

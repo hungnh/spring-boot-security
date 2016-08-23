@@ -12,4 +12,6 @@ public interface ITokenService {
     boolean contains(String token);
 
     Authentication retrieve(String token);
+
+    void remove(String token);
 }
