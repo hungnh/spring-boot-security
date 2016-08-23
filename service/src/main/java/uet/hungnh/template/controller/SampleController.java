@@ -12,27 +12,27 @@ public class SampleController {
     @Autowired
     private ISampleService sampleService;
 
-    @RequestMapping(method = RequestMethod.GET)
+    @GetMapping
     public String sample() {
         return "Sample OK!";
     }
 
-    @RequestMapping(method = RequestMethod.PUT)
+    @PutMapping
     public SampleDTO create(@RequestBody SampleDTO sampleDTO) {
         return sampleService.create(sampleDTO);
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    @GetMapping(value = "/{id}")
     public SampleDTO retrieve(@PathVariable("id") Integer id) {
         return sampleService.retrieve(id);
     }
 
-    @RequestMapping(method = RequestMethod.POST)
+    @PostMapping
     public SampleDTO update(@RequestBody SampleDTO sampleDTO) {
         return sampleService.update(sampleDTO);
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    @DeleteMapping(value = "/{id}")
     public void delete(@PathVariable("id") Integer id) {
         sampleService.delete(id);
     }
