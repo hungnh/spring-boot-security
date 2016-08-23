@@ -50,6 +50,14 @@
         </dependency>
         <!-- end :: Ehcache -->
 
+        <!-- tag :: Guava -->
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>${guava.version}</version>
+        </dependency>
+        <!-- end :: Guava-->
+
         <!-- tag :: test -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -58,6 +66,10 @@
         </dependency>
         <!-- end :: test -->
     </dependencies>
+
+    <properties>
+        <guava.version>19.0</guava.version>
+    </properties>
 
     <build>
         <plugins>

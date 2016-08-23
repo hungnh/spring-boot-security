@@ -23,7 +23,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Optional;
 
-import static uet.hungnh.template.security.constants.SecurityConstants.AUTHENTICATION_ENDPOINT;
+import static uet.hungnh.template.security.constants.SecurityConstants.*;
 
 public class AuthenticationFilter extends GenericFilterBean {
 
@@ -43,9 +43,9 @@ public class AuthenticationFilter extends GenericFilterBean {
         HttpServletRequest httpRequest = asHttp(request);
         HttpServletResponse httpResponse = asHttp(response);
 
-        Optional<String> username = Optional.ofNullable(httpRequest.getHeader("X-Auth-Username"));
-        Optional<String> password = Optional.ofNullable(httpRequest.getHeader("X-Auth-Password"));
-        Optional<String> token = Optional.ofNullable(httpRequest.getHeader("X-Auth-Token"));
+        Optional<String> username = Optional.ofNullable(httpRequest.getHeader(USERNAME_HEADER));
+        Optional<String> password = Optional.ofNullable(httpRequest.getHeader(PASSWORD_HEADER));
+        Optional<String> token = Optional.ofNullable(httpRequest.getHeader(TOKEN_HEADER));
 
         String resourcePath = (new UrlPathHelper()).getPathWithinApplication(httpRequest);
 

@@ -18,13 +18,13 @@ public class UsernamePasswordAuthenticationService {
 
     public AuthenticationToken authenticate(String username, String password) {
 
-        UserAccount userAccount = userAccountRepository.findByUsername(username);
+        UserAccount user = userAccountRepository.findByUsername(username);
 
-        if (userAccount == null) {
+        if (user == null) {
             throw new BadCredentialsException("User not found!");
         }
 
-        if (!userAccount.getPassword().equals(password)) {
+        if (!user.getPassword().equals(password)) {
             throw new BadCredentialsException("Wrong password");
         }
 
