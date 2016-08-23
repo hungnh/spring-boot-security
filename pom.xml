@@ -16,9 +16,9 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>dto</module>
-        <module>service</module>
-        <module>model</module>
+        <module>common</module>
+        <module>sample</module>
+        <module>security</module>
     </modules>
 
     <properties>
