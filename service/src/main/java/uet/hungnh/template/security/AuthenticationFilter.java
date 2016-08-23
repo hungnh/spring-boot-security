@@ -1,6 +1,5 @@
 package uet.hungnh.template.security;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -11,7 +10,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationToken;
 import org.springframework.web.filter.GenericFilterBean;
 import org.springframework.web.util.UrlPathHelper;
-import uet.hungnh.template.security.model.TokenResponse;
 
 import javax.security.sasl.AuthenticationException;
 import javax.servlet.FilterChain;
@@ -53,12 +51,11 @@ public class AuthenticationFilter extends GenericFilterBean {
             if (postToAuthenticate(httpRequest, resourcePath)) {
                 logger.debug("Trying to authenticate user {} by username/password method ", username);
                 processUsernamePasswordAuthentication(httpRequest, httpResponse, username, password);
-                return;
             }
 
             if (token.isPresent()) {
                 logger.debug("Trying to authenticate user by Token {} ", token);
-                processTokenAuthentication(token);
+                processTokenAuthentication(token.get());
             }
 
             logger.debug("AuthenticationFilter is passing request down the filter chain");
@@ -75,12 +72,12 @@ public class AuthenticationFilter extends GenericFilterBean {
         }
     }
 
-    private void processTokenAuthentication(Optional<String> token) {
+    private void processTokenAuthentication(String token) {
         Authentication authenticationResult = tryToAuthenticateWithToken(token);
         SecurityContextHolder.getContext().setAuthentication(authenticationResult);
     }
 
-    private Authentication tryToAuthenticateWithToken(Optional<String> token) {
+    private Authentication tryToAuthenticateWithToken(String token) {
         PreAuthenticatedAuthenticationToken authenticationRequest = new PreAuthenticatedAuthenticationToken(token, null);
         return tryToAuthenticate(authenticationRequest);
     }
@@ -93,29 +90,22 @@ public class AuthenticationFilter extends GenericFilterBean {
             throw new InternalAuthenticationServiceException("Unable to authenticate without username or password!");
         }
 
-        Authentication authenticationResult = tryToAuthenticateWithUsernameAndPassword(username, password);
-        SecurityContextHolder.getContext().setAuthentication(authenticationResult);
-
-        response.setStatus(HttpServletResponse.SC_OK);
-
-        TokenResponse tokenResponse = new TokenResponse(authenticationResult.getDetails().toString());
-        String tokenResponseJson = (new ObjectMapper().writeValueAsString(tokenResponse));
-        response.addHeader("Content-Type", "application/json");
-        response.getWriter().print(tokenResponseJson);
+        Authentication authResult = tryToAuthenticateWithUsernameAndPassword(username.get(), password.get());
+        SecurityContextHolder.getContext().setAuthentication(authResult);
     }
 
-    private Authentication tryToAuthenticateWithUsernameAndPassword(Optional<String> username, Optional<String> password) {
+    private Authentication tryToAuthenticateWithUsernameAndPassword(String username, String password) {
         UsernamePasswordAuthenticationToken authenticationRequest = new UsernamePasswordAuthenticationToken(username, password);
         return tryToAuthenticate(authenticationRequest);
     }
 
     private Authentication tryToAuthenticate(Authentication authenticationRequest) {
-        Authentication authenticationResult = authenticationManager.authenticate(authenticationRequest);
-        if (authenticationResult == null || !authenticationResult.isAuthenticated()) {
+        Authentication authResult = authenticationManager.authenticate(authenticationRequest);
+        if (authResult == null || !authResult.isAuthenticated()) {
             throw new InternalAuthenticationServiceException("Unable to authenticate user for provided credentials!");
         }
         logger.debug("User is successfully authenticated!");
-        return authenticationResult;
+        return authResult;
     }
 
     private boolean postToAuthenticate(HttpServletRequest httpRequest, String resourcePath) {

@@ -1,4 +1,4 @@
-package uet.hungnh.template.config.mapper;
+package uet.hungnh.template.config;
 
 import ma.glasnost.orika.MapperFacade;
 import ma.glasnost.orika.impl.DefaultMapperFactory;

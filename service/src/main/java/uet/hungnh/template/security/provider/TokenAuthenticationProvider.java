@@ -8,8 +8,6 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationToken;
 import uet.hungnh.template.security.service.TokenService;
 
-import java.util.Optional;
-
 public class TokenAuthenticationProvider implements AuthenticationProvider {
 
     @Autowired
@@ -18,17 +16,17 @@ public class TokenAuthenticationProvider implements AuthenticationProvider {
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
 
-        Optional<String> token = (Optional) authentication.getPrincipal();
+        String token = (String) authentication.getPrincipal();
 
-        if (!token.isPresent() || token.get().isEmpty()) {
+        if (token.isEmpty()) {
             throw new BadCredentialsException("Invalid token!");
         }
 
-        if (!tokenService.contains(token.get())) {
+        if (!tokenService.contains(token)) {
             throw new BadCredentialsException("Token is invalid or expired!");
         }
 
-        return tokenService.retrieve(token.get());
+        return tokenService.retrieve(token);
     }
 
     @Override

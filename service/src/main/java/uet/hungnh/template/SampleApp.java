@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.security.SecurityAutoConfiguration
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
-import uet.hungnh.template.config.security.WebSecurityConfig;
+import uet.hungnh.template.config.WebSecurityConfig;
 
 @Configuration
 @EnableAutoConfiguration(
