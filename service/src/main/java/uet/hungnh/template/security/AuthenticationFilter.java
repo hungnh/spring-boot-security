@@ -1,4 +1,4 @@
-package uet.hungnh.template.config.security.auth;
+package uet.hungnh.template.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
@@ -11,8 +11,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationToken;
 import org.springframework.web.filter.GenericFilterBean;
 import org.springframework.web.util.UrlPathHelper;
-import uet.hungnh.template.config.security.model.TokenResponse;
-import uet.hungnh.template.controller.APIController;
+import uet.hungnh.template.security.model.TokenResponse;
 
 import javax.security.sasl.AuthenticationException;
 import javax.servlet.FilterChain;
@@ -23,6 +22,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Optional;
+
+import static uet.hungnh.template.security.constants.SecurityConstants.AUTHENTICATION_ENDPOINT;
 
 public class AuthenticationFilter extends GenericFilterBean {
 
@@ -120,7 +121,7 @@ public class AuthenticationFilter extends GenericFilterBean {
     private boolean postToAuthenticate(HttpServletRequest httpRequest, String resourcePath) {
         return (
                 "POST".equals(httpRequest.getMethod())
-                && APIController.AUTHENTICATION_ENDPOINT.equals(resourcePath)
+                && AUTHENTICATION_ENDPOINT.equals(resourcePath)
         );
     }
 

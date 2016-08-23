@@ -1,4 +1,4 @@
-package uet.hungnh.template.config.security.model;
+package uet.hungnh.template.security.model;
 
 public class TokenResponse {
 

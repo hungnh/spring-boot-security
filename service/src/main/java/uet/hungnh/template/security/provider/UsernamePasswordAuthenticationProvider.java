@@ -1,26 +1,23 @@
-package uet.hungnh.template.config.security.provider;
+package uet.hungnh.template.security.provider;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
-import uet.hungnh.template.config.security.auth.AuthenticationToken;
-import uet.hungnh.template.config.security.service.TokenService;
-import uet.hungnh.template.config.security.service.UsernamePasswordAuthenticationService;
+import uet.hungnh.template.security.model.AuthenticationToken;
+import uet.hungnh.template.security.service.TokenService;
+import uet.hungnh.template.security.service.UsernamePasswordAuthenticationService;
 
 import java.util.Optional;
 
 public class UsernamePasswordAuthenticationProvider implements AuthenticationProvider {
 
+    @Autowired
     private TokenService tokenService;
+    @Autowired
     private UsernamePasswordAuthenticationService usernamePasswordAuthenticationService;
-
-    public UsernamePasswordAuthenticationProvider(TokenService tokenService,
-                                                  UsernamePasswordAuthenticationService usernamePasswordAuthenticationService) {
-        this.tokenService = tokenService;
-        this.usernamePasswordAuthenticationService = usernamePasswordAuthenticationService;
-    }
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {

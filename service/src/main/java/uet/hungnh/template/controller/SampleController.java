@@ -1,12 +1,16 @@
 package uet.hungnh.template.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 import uet.hungnh.template.dto.SampleDTO;
 import uet.hungnh.template.service.ISampleService;
 
+import static uet.hungnh.template.security.constants.SecurityConstants.ROLE_USER;
+
 @RestController
-@RequestMapping(value = APIController.API_ENDPOINT)
+@RequestMapping("/sample")
+@Secured({ROLE_USER})
 public class SampleController {
 
     @Autowired

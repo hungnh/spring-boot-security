@@ -1,1 +1,1 @@
-INSERT INTO "public"."user_account" ("id", "created_date", "updated_date", "email", "password", "username") VALUES ('1', 'now()', 'now()', 'user1@gmail.com', 'user1', 'user1')
+INSERT INTO "public"."user_account" ("id", "created_date", "updated_date", "email", "password", "username") VALUES ('1', 'now()', 'now()', 'user1@gmail.com', 'user1', 'user1@gmail.com')

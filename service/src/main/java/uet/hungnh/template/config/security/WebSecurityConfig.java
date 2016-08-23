@@ -5,27 +5,25 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
-import uet.hungnh.template.config.security.auth.AuthenticationFilter;
-import uet.hungnh.template.config.security.auth.UnauthorizedEntryPoint;
-import uet.hungnh.template.config.security.provider.TokenAuthenticationProvider;
-import uet.hungnh.template.config.security.provider.UsernamePasswordAuthenticationProvider;
-import uet.hungnh.template.config.security.service.TokenService;
-import uet.hungnh.template.config.security.service.UsernamePasswordAuthenticationService;
-import uet.hungnh.template.controller.APIController;
+import uet.hungnh.template.security.AuthenticationFilter;
+import uet.hungnh.template.security.provider.TokenAuthenticationProvider;
+import uet.hungnh.template.security.provider.UsernamePasswordAuthenticationProvider;
 
-import static uet.hungnh.template.config.security.constants.SecurityConstants.ALL_ROLES;
-import static uet.hungnh.template.config.security.constants.SecurityConstants.ROLE_USER;
+import javax.servlet.http.HttpServletResponse;
+
 
 @Configuration
 @EnableWebSecurity
+@EnableGlobalMethodSecurity(securedEnabled = true)
 @ComponentScan(
-        basePackages = "uet.hungnh.template.config.security",
+        basePackages = "uet.hungnh.template.security",
         excludeFilters = @ComponentScan.Filter({Configuration.class})
 )
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
@@ -44,46 +42,26 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
-                    .authorizeRequests()
-                    .antMatchers(apiEndpoints()).hasAuthority(ROLE_USER)
-                    .antMatchers(APIController.AUTHENTICATION_ENDPOINT).hasAnyAuthority(ALL_ROLES)
-                    .anyRequest().authenticated()
-                .and()
                     .exceptionHandling().authenticationEntryPoint(unauthorizedEntryPoint())
                 .and()
-                    .anonymous().disable()
                     .logout()
         ;
 
         http.addFilterBefore(new AuthenticationFilter(authenticationManager()), BasicAuthenticationFilter.class);
     }
 
-    private String[] apiEndpoints() {
-        return new String[]{APIController.API_ENDPOINT};
-    }
-
     @Bean
     public AuthenticationProvider tokenAuthenticationProvider() {
-        return new TokenAuthenticationProvider(tokenService());
+        return new TokenAuthenticationProvider();
     }
 
     @Bean
     public AuthenticationProvider usernamePasswordAuthenticationProvider() {
-        return new UsernamePasswordAuthenticationProvider(tokenService(), usernamePasswordAuthenticationService());
-    }
-
-    @Bean
-    public TokenService tokenService() {
-        return new TokenService();
-    }
-
-    @Bean
-    public UsernamePasswordAuthenticationService usernamePasswordAuthenticationService() {
-        return new UsernamePasswordAuthenticationService();
+        return new UsernamePasswordAuthenticationProvider();
     }
 
     @Bean
     public AuthenticationEntryPoint unauthorizedEntryPoint() {
-        return new UnauthorizedEntryPoint();
+        return (request, response, authException) -> response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized");
     }
 }

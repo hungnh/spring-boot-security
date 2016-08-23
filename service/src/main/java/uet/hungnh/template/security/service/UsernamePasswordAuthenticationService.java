@@ -1,14 +1,16 @@
-package uet.hungnh.template.config.security.service;
+package uet.hungnh.template.security.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.authority.AuthorityUtils;
-import uet.hungnh.template.config.security.auth.AuthenticationToken;
+import org.springframework.stereotype.Service;
 import uet.hungnh.template.model.UserAccount;
 import uet.hungnh.template.repo.UserAccountRepository;
+import uet.hungnh.template.security.model.AuthenticationToken;
 
-import static uet.hungnh.template.config.security.constants.SecurityConstants.ROLE_USER;
+import static uet.hungnh.template.security.constants.SecurityConstants.ROLE_USER;
 
+@Service
 public class UsernamePasswordAuthenticationService {
 
     @Autowired

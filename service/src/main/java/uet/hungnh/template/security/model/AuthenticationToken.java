@@ -1,4 +1,4 @@
-package uet.hungnh.template.config.security.auth;
+package uet.hungnh.template.security.model;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationToken;
