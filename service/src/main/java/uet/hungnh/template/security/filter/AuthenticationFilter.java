@@ -1,4 +1,4 @@
-package uet.hungnh.template.security;
+package uet.hungnh.template.security.filter;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

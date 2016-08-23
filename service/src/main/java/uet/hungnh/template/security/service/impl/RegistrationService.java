@@ -31,10 +31,13 @@ public class RegistrationService implements IRegistrationService {
             throw new ServiceException(ExceptionMessage.EMAIL_EXISTED);
         }
 
-        User user = mapper.map(userDTO, User.class);
+        User user = new User();
+        user.setEmail(userDTO.getEmail());
+        user.setUsername(userDTO.getEmail());
 
         String encodedPassword = passwordEncoder.encode(userDTO.getPassword());
         user.setPassword(encodedPassword);
+
         userRepository.save(user);
 
         return mapper.map(user, UserDTO.class);
