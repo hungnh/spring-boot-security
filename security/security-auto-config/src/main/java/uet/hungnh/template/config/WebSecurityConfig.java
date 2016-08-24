@@ -19,6 +19,9 @@ import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.authentication.logout.LogoutHandler;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import uet.hungnh.template.security.filter.AuthenticationFilter;
 import uet.hungnh.template.security.handler.CustomLogoutSuccessHandler;
 import uet.hungnh.template.security.handler.TokenClearingLogoutHandler;
@@ -54,23 +57,36 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
+                .cors().configurationSource(corsConfigurationSource())
+                .and()
                 .csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
-                    .authorizeRequests()
-                    .antMatchers(REGISTER_ENDPOINT).permitAll()
-                    .antMatchers(AUTHENTICATION_ENDPOINT).permitAll()
-                    .antMatchers(LOGOUT_ENDPOINT).permitAll()
+                .authorizeRequests()
+                .antMatchers(REGISTER_ENDPOINT).permitAll()
+                .antMatchers(AUTHENTICATION_ENDPOINT).permitAll()
+                .antMatchers(LOGOUT_ENDPOINT).permitAll()
                 .and()
-                    .exceptionHandling().authenticationEntryPoint(unauthorizedEntryPoint())
+                .exceptionHandling().authenticationEntryPoint(unauthorizedEntryPoint())
                 .and()
-                    .logout()
-                    .logoutSuccessHandler(logoutSuccessHandler())
-                    .logoutUrl(LOGOUT_ENDPOINT)
-                    .addLogoutHandler(tokenClearingLogoutHandler())
+                .logout()
+                .logoutSuccessHandler(logoutSuccessHandler())
+                .logoutUrl(LOGOUT_ENDPOINT)
+                .addLogoutHandler(tokenClearingLogoutHandler())
         ;
 
         http.addFilterBefore(new AuthenticationFilter(authenticationManager()), BasicAuthenticationFilter.class);
+    }
+
+    private CorsConfigurationSource corsConfigurationSource() {
+        UrlBasedCorsConfigurationSource corsConfigurationSource = new UrlBasedCorsConfigurationSource();
+        CorsConfiguration corsConfig = new CorsConfiguration();
+        corsConfig.setAllowCredentials(true);
+        corsConfig.addAllowedOrigin("http://localhost:9001");
+        corsConfig.addAllowedHeader("*");
+        corsConfig.addAllowedMethod("*");
+        corsConfigurationSource.registerCorsConfiguration("/**", corsConfig);
+        return corsConfigurationSource;
     }
 
     @Bean
