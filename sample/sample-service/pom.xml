@@ -12,6 +12,14 @@
     <artifactId>sample-service</artifactId>
 
     <dependencies>
+        <!-- tag :: model-->
+        <dependency>
+            <groupId>uet.hungnh.template</groupId>
+            <artifactId>sample-model</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+        <!-- end :: model-->
+
         <!-- tag :: common -->
         <dependency>
             <groupId>uet.hungnh.template</groupId>
@@ -20,12 +28,20 @@
         </dependency>
         <!-- end :: common -->
 
-        <!-- tag :: model-->
+        <!-- tag :: security -->
         <dependency>
             <groupId>uet.hungnh.template</groupId>
-            <artifactId>sample-model</artifactId>
+            <artifactId>security-auto-config</artifactId>
             <version>1.0.0</version>
         </dependency>
-        <!-- end :: model-->
+        <!-- end :: security -->
+
+        <!-- tag :: test -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <!-- end :: test -->
     </dependencies>
 </project>

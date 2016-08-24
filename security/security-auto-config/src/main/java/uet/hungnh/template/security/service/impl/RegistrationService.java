@@ -8,8 +8,8 @@ import uet.hungnh.template.dto.TokenDTO;
 import uet.hungnh.template.dto.UserDTO;
 import uet.hungnh.template.exception.ExceptionMessage;
 import uet.hungnh.template.exception.ServiceException;
-import uet.hungnh.template.model.User;
-import uet.hungnh.template.repo.UserRepository;
+import uet.hungnh.template.model.entity.User;
+import uet.hungnh.template.model.repo.UserRepository;
 import uet.hungnh.template.security.service.IAuthenticationService;
 import uet.hungnh.template.security.service.IRegistrationService;
 

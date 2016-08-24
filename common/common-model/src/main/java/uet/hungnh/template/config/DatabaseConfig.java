@@ -7,8 +7,8 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 
 @Configuration
-@EnableJpaRepositories(basePackages = "uet.hungnh.template.repo")
-@EntityScan(basePackages = "uet.hungnh.template.model")
+@EnableJpaRepositories(basePackages = "uet.hungnh.template.model.repo")
+@EntityScan(basePackages = "uet.hungnh.template.model.entity")
 public class DatabaseConfig {
     @Bean
     private LocalContainerEntityManagerFactoryBean entityManagerFactory() {

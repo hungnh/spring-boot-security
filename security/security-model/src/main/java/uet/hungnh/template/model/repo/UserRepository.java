@@ -1,8 +1,8 @@
-package uet.hungnh.template.repo;
+package uet.hungnh.template.model.repo;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
-import uet.hungnh.template.model.User;
+import uet.hungnh.template.model.entity.User;
 
 @Repository
 public interface UserRepository extends CrudRepository<User, Long> {

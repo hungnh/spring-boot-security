@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.security.SecurityAutoConfiguration
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
+import uet.hungnh.template.config.CacheConfig;
 import uet.hungnh.template.config.WebSecurityConfig;
 
 @Configuration
@@ -20,7 +21,10 @@ import uet.hungnh.template.config.WebSecurityConfig;
         basePackages = "uet.hungnh.template",
         excludeFilters = @ComponentScan.Filter({Configuration.class})
 )
-@Import({WebSecurityConfig.class})
+@Import({
+        WebSecurityConfig.class,
+        CacheConfig.class
+})
 public class SampleApp {
     public static void main(String[] args) {
         SpringApplication.run(SampleApp.class, args);

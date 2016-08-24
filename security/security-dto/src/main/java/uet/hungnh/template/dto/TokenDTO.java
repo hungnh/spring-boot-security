@@ -1,7 +1,6 @@
 package uet.hungnh.template.dto;
 
 public class TokenDTO {
-
     private String token;
 
     public TokenDTO() {

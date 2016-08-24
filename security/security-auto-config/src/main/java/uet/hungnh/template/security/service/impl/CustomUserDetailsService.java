@@ -8,8 +8,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import uet.hungnh.template.model.User;
-import uet.hungnh.template.repo.UserRepository;
+import uet.hungnh.template.model.entity.User;
+import uet.hungnh.template.model.repo.UserRepository;
 import uet.hungnh.template.security.service.LoginAttemptService;
 
 import javax.servlet.http.HttpServletRequest;

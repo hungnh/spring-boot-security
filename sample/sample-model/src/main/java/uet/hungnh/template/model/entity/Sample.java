@@ -1,4 +1,4 @@
-package uet.hungnh.template.model;
+package uet.hungnh.template.model.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

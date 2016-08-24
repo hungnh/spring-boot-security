@@ -20,7 +20,7 @@
         </dependency>
         <!-- end :: model-->
 
-        <!-- tag :: Spring Boot -->
+        <!-- tag :: Spring -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter</artifactId>
@@ -29,7 +29,12 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
-        <!-- end :: Spring Boot -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context-support</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <!-- end :: Spring -->
 
         <!-- tag :: Orika mapper-->
         <dependency>
@@ -39,13 +44,12 @@
         </dependency>
         <!-- end :: Orika mapper-->
 
-        <!-- tag :: test -->
+        <!-- tag :: Ehcache -->
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
+            <groupId>net.sf.ehcache</groupId>
+            <artifactId>ehcache</artifactId>
         </dependency>
-        <!-- end :: test -->
+        <!-- end :: Ehcache -->
     </dependencies>
 
     <build>

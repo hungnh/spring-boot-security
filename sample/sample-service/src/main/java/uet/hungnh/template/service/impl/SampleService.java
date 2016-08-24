@@ -5,8 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import uet.hungnh.template.dto.SampleDTO;
-import uet.hungnh.template.model.Sample;
-import uet.hungnh.template.repo.SampleRepository;
+import uet.hungnh.template.model.entity.Sample;
+import uet.hungnh.template.model.repo.SampleRepository;
 import uet.hungnh.template.service.ISampleService;
 
 @Service

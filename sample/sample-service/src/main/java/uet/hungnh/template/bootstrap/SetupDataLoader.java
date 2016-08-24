@@ -6,8 +6,8 @@ import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
-import uet.hungnh.template.model.User;
-import uet.hungnh.template.repo.UserRepository;
+import uet.hungnh.template.model.entity.User;
+import uet.hungnh.template.model.repo.UserRepository;
 
 @Component
 public class SetupDataLoader implements ApplicationListener<ContextRefreshedEvent> {

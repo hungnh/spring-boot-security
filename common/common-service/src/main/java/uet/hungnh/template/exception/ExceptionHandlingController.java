@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 @ControllerAdvice
 public class ExceptionHandlingController {
 
+//TODO: Circular view path exception here
 //    @ExceptionHandler({ServiceException.class})
 //    public ExceptionDTO serviceException(ServiceException ex,
 //                                         HttpServletRequest request,
