@@ -15,6 +15,7 @@ import uet.hungnh.template.model.repo.UserRepository;
 public class SetupDataLoader implements ApplicationListener<ContextRefreshedEvent> {
 
     private boolean alreadySetup = false;
+    private static final String EMAIL = "user@test.com";
 
     @Autowired
     private UserRepository userRepository;
@@ -26,20 +27,22 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
     @Transactional
     public void onApplicationEvent(ContextRefreshedEvent event) {
 
-        String email = "user1@test.com";
-
-        if (alreadySetup || userRepository.findByUsername(email) != null) {
+        if (alreadySetup || alreadyExisted()) {
             return;
         }
 
         User user = new User();
-        user.setFirstName("User 1");
+        user.setFirstName("User");
         user.setLastName("Test");
-        user.setPassword(passwordEncoder.encode("user1"));
-        user.setEmail(email);
-        user.setUsername(email);
+        user.setPassword(passwordEncoder.encode("user@123"));
+        user.setEmail(EMAIL);
+        user.setUsername(EMAIL);
         userRepository.save(user);
 
         alreadySetup = true;
+    }
+
+    private boolean alreadyExisted() {
+        return userRepository.findByUsername(EMAIL) != null;
     }
 }
