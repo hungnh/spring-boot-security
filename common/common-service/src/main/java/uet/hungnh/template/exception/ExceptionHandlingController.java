@@ -18,7 +18,7 @@ public class ExceptionHandlingController {
                                          HttpServletRequest request,
                                          HttpServletResponse response) {
         ExceptionDTO exceptionDTO = new ExceptionDTO();
-        exceptionDTO.setType(ex.getClass().getCanonicalName());
+        exceptionDTO.setException(ex.getClass().getCanonicalName());
         exceptionDTO.setMessage(ex.getMessage());
         response.setStatus(ex.getHttpStatusCode());
         return exceptionDTO;
@@ -29,7 +29,7 @@ public class ExceptionHandlingController {
                                          HttpServletRequest request,
                                          HttpServletResponse response) {
         ExceptionDTO exceptionDTO = new ExceptionDTO();
-        exceptionDTO.setType(ex.getClass().getCanonicalName());
+        exceptionDTO.setException(ex.getClass().getCanonicalName());
         exceptionDTO.setMessage(ex.getMessage());
         response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         return exceptionDTO;

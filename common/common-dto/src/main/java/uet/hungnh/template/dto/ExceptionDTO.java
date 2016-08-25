@@ -2,15 +2,15 @@ package uet.hungnh.template.dto;
 
 public class ExceptionDTO {
 
-    private String type;
+    private String exception;
     private String message;
 
-    public String getType() {
-        return type;
+    public String getException() {
+        return exception;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setException(String exception) {
+        this.exception = exception;
     }
 
     public String getMessage() {
