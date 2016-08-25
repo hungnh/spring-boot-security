@@ -1,19 +1,37 @@
 package uet.hungnh.template.exception;
 
 import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
+import uet.hungnh.template.dto.ExceptionDTO;
 
-@ControllerAdvice
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+@ControllerAdvice(annotations = {RestController.class})
+@ResponseBody
 public class ExceptionHandlingController {
 
-//TODO: Circular view path exception here
-//    @ExceptionHandler({ServiceException.class})
-//    public ExceptionDTO serviceException(ServiceException ex,
-//                                         HttpServletRequest request,
-//                                         HttpServletResponse response) {
-//        ExceptionDTO exceptionDTO = new ExceptionDTO();
-//        exceptionDTO.setType(ex.getClass().getCanonicalName());
-//        exceptionDTO.setMessage(ex.getMessage());
-//        response.setStatus(ex.getHttpStatusCode());
-//        return exceptionDTO;
-//    }
+    @ExceptionHandler({ServiceException.class})
+    public ExceptionDTO serviceException(ServiceException ex,
+                                         HttpServletRequest request,
+                                         HttpServletResponse response) {
+        ExceptionDTO exceptionDTO = new ExceptionDTO();
+        exceptionDTO.setType(ex.getClass().getCanonicalName());
+        exceptionDTO.setMessage(ex.getMessage());
+        response.setStatus(ex.getHttpStatusCode());
+        return exceptionDTO;
+    }
+
+    @ExceptionHandler({Exception.class})
+    public ExceptionDTO anyException(Exception ex,
+                                         HttpServletRequest request,
+                                         HttpServletResponse response) {
+        ExceptionDTO exceptionDTO = new ExceptionDTO();
+        exceptionDTO.setType(ex.getClass().getCanonicalName());
+        exceptionDTO.setMessage(ex.getMessage());
+        response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+        return exceptionDTO;
+    }
 }
