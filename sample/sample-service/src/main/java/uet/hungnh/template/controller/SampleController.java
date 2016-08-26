@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.*;
 import uet.hungnh.template.dto.SampleDTO;
 import uet.hungnh.template.service.ISampleService;
 
+import java.util.UUID;
+
 import static uet.hungnh.template.security.constants.SecurityConstants.ROLE_USER;
 
 @RestController
@@ -27,7 +29,7 @@ public class SampleController {
     }
 
     @GetMapping(value = "/{id}")
-    public SampleDTO retrieve(@PathVariable("id") Long id) {
+    public SampleDTO retrieve(@PathVariable("id") UUID id) {
         return sampleService.retrieve(id);
     }
 
@@ -37,7 +39,7 @@ public class SampleController {
     }
 
     @DeleteMapping(value = "/{id}")
-    public void delete(@PathVariable("id") Long id) {
+    public void delete(@PathVariable("id") UUID id) {
         sampleService.delete(id);
     }
 }

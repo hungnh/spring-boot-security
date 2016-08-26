@@ -1,15 +1,20 @@
 package uet.hungnh.template.model.entity;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.UUID;
 
 @MappedSuperclass
 public abstract class BaseEntity implements Serializable {
+
     @Id
+    @GeneratedValue(generator = "uuid2")
+    @GenericGenerator(name = "uuid2", strategy = "uuid2")
     @Column(nullable = false)
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    protected Long id;
+    private UUID id;
 
     @Column(nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
@@ -28,11 +33,11 @@ public abstract class BaseEntity implements Serializable {
         updatedDate = new Date();
     }
 
-    public Long getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 

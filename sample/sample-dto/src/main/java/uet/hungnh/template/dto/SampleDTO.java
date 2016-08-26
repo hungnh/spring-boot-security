@@ -2,16 +2,18 @@ package uet.hungnh.template.dto;
 
 import uet.hungnh.template.enums.SampleType;
 
+import java.util.UUID;
+
 public class SampleDTO {
-    private Long id;
+    private UUID id;
     private String name;
     private SampleType type;
 
-    public Long getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 

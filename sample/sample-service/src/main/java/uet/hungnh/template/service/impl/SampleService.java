@@ -9,6 +9,8 @@ import uet.hungnh.template.model.entity.Sample;
 import uet.hungnh.template.model.repo.SampleRepository;
 import uet.hungnh.template.service.ISampleService;
 
+import java.util.UUID;
+
 @Service
 @Transactional(rollbackFor = Exception.class)
 public class SampleService implements ISampleService {
@@ -34,13 +36,13 @@ public class SampleService implements ISampleService {
     }
 
     @Override
-    public SampleDTO retrieve(Long id) {
+    public SampleDTO retrieve(UUID id) {
         Sample sample = sampleRepository.findOne(id);
         return mapper.map(sample, SampleDTO.class);
     }
 
     @Override
-    public void delete(Long id) {
+    public void delete(UUID id) {
         sampleRepository.delete(id);
     }
 }
