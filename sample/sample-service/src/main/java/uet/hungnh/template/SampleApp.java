@@ -6,9 +6,6 @@ import org.springframework.boot.autoconfigure.data.rest.RepositoryRestMvcAutoCon
 import org.springframework.boot.autoconfigure.security.SecurityAutoConfiguration;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
-import uet.hungnh.template.config.CacheConfig;
-import uet.hungnh.template.config.WebSecurityConfig;
 
 @Configuration
 @EnableAutoConfiguration(
@@ -17,14 +14,7 @@ import uet.hungnh.template.config.WebSecurityConfig;
                 SecurityAutoConfiguration.class
         }
 )
-@ComponentScan(
-        basePackages = "uet.hungnh.template",
-        excludeFilters = @ComponentScan.Filter({Configuration.class})
-)
-@Import({
-        WebSecurityConfig.class,
-        CacheConfig.class
-})
+@ComponentScan(basePackages = "uet.hungnh.template")
 public class SampleApp {
     public static void main(String[] args) {
         SpringApplication.run(SampleApp.class, args);
