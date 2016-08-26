@@ -20,8 +20,6 @@ public class TokenClearingLogoutHandler implements LogoutHandler {
                        HttpServletResponse response,
                        Authentication authentication) {
         String token = request.getHeader(TOKEN_HEADER);
-        if (tokenService.contains(token)) {
-            tokenService.remove(token);
-        }
+        tokenService.remove(token);
     }
 }

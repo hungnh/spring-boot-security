@@ -1,27 +1,38 @@
 package uet.hungnh.template.security.service.impl;
 
-import net.sf.ehcache.Cache;
-import net.sf.ehcache.CacheManager;
-import net.sf.ehcache.Element;
+import com.google.common.cache.CacheBuilder;
+import com.google.common.cache.CacheLoader;
+import com.google.common.cache.LoadingCache;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.Authentication;
 import uet.hungnh.template.security.service.ITokenService;
 
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 public class InMemoryTokenService implements ITokenService {
 
     private static final Logger logger = LoggerFactory.getLogger(InMemoryTokenService.class);
-    private static final Cache authTokenCache = CacheManager.getInstance().getCache("auth-token-cache");
-    private static final int HALF_AN_HOUR_IN_MILLISECONDS = 30 * 60 * 1000;
+    private LoadingCache<String, Authentication> authTokenCache;
 
-    @Override
-    @Scheduled(fixedRate = HALF_AN_HOUR_IN_MILLISECONDS)
-    public void evictExpiredTokens() {
-        logger.info("Evicting expired tokens");
-        authTokenCache.evictExpiredElements();
+    public InMemoryTokenService() {
+        super();
+        authTokenCache = CacheBuilder.newBuilder()
+                .expireAfterAccess(1, TimeUnit.HOURS)
+                .build(new CacheLoader<String, Authentication>() {
+                    @Override
+                    public Authentication load(String key) throws Exception {
+                        Authentication auth = retrieve(key);
+                        if (auth != null) {
+                            return auth;
+                        }
+                        else {
+                            throw new BadCredentialsException("Token is invalid or expired!");
+                        }
+                    }
+                });
     }
 
     @Override
@@ -31,21 +42,16 @@ public class InMemoryTokenService implements ITokenService {
 
     @Override
     public void store(String token, Authentication authentication) {
-        authTokenCache.put(new Element(token, authentication));
-    }
-
-    @Override
-    public boolean contains(String token) {
-        return authTokenCache.isKeyInCache(token);
+        authTokenCache.put(token, authentication);
     }
 
     @Override
     public Authentication retrieve(String token) {
-        return (Authentication) authTokenCache.get(token).getObjectValue();
+        return authTokenCache.getIfPresent(token);
     }
 
     @Override
     public void remove(String token) {
-        authTokenCache.remove(token);
+        authTokenCache.invalidate(token);
     }
 }

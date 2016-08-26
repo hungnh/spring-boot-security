@@ -12,7 +12,7 @@ import java.util.concurrent.TimeUnit;
 public class LoginAttemptService {
 
     private static final int MAX_ATTEMPT = 10;
-    private LoadingCache<String, Integer> attemptsCache;
+    private final LoadingCache<String, Integer> attemptsCache;
 
     public LoginAttemptService() {
         super();

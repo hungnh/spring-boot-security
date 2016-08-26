@@ -24,11 +24,12 @@ public class TokenAuthenticationProvider implements AuthenticationProvider {
             throw new BadCredentialsException("Invalid token!");
         }
 
-        if (!tokenService.contains(token)) {
+        Authentication authToken = tokenService.retrieve(token);
+        if (authToken == null) {
             throw new BadCredentialsException("Token is invalid or expired!");
         }
 
-        return tokenService.retrieve(token);
+        return authToken;
     }
 
     @Override
