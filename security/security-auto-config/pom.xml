@@ -42,6 +42,14 @@
             <version>${guava.version}</version>
         </dependency>
         <!-- end :: Guava-->
+
+        <!-- tag :: mail-sender -->
+        <dependency>
+            <groupId>uet.hungnh.template</groupId>
+            <artifactId>mail-sender-autoconfig</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+        <!-- end :: mail-sender -->
     </dependencies>
 
 </project>
