@@ -3,8 +3,7 @@ package uet.hungnh.common.exception;
 import org.springframework.http.HttpStatus;
 
 public enum ExceptionMessage {
-    EMAIL_EXISTED("There is already an email with that email address", HttpStatus.CONFLICT)
-    ;
+    EMAIL_EXISTED("There is already an email with that email address", HttpStatus.CONFLICT);
 
 
     private String message;

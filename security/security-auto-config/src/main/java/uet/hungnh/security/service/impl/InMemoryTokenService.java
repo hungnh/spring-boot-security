@@ -27,8 +27,7 @@ public class InMemoryTokenService implements ITokenService {
                         Authentication auth = retrieve(key);
                         if (auth != null) {
                             return auth;
-                        }
-                        else {
+                        } else {
                             throw new BadCredentialsException("Token is invalid or expired!");
                         }
                     }

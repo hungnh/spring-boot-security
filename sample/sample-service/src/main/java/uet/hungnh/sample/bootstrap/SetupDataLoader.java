@@ -14,8 +14,8 @@ import uet.hungnh.security.model.repo.UserRepository;
 @Profile("DEV")
 public class SetupDataLoader implements ApplicationListener<ContextRefreshedEvent> {
 
-    private boolean alreadySetup = false;
     private static final String EMAIL = "user@test.com";
+    private boolean alreadySetup = false;
 
     @Autowired
     private UserRepository userRepository;

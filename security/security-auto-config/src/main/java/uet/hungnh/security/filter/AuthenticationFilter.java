@@ -59,13 +59,11 @@ public class AuthenticationFilter extends GenericFilterBean {
 
             logger.debug("AuthenticationFilter is passing request down the filter chain");
             chain.doFilter(request, response);
-        }
-        catch (InternalAuthenticationServiceException e) {
+        } catch (InternalAuthenticationServiceException e) {
             SecurityContextHolder.clearContext();
             logger.error("Internal authentication service exception", e);
             httpResponse.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, e.getMessage());
-        }
-        catch (AuthenticationException e) {
+        } catch (AuthenticationException e) {
             SecurityContextHolder.clearContext();
             httpResponse.sendError(HttpServletResponse.SC_UNAUTHORIZED, e.getMessage());
         }
@@ -110,7 +108,7 @@ public class AuthenticationFilter extends GenericFilterBean {
     private boolean postToAuthenticate(HttpServletRequest httpRequest, String resourcePath) {
         return (
                 "POST".equals(httpRequest.getMethod())
-                && SecurityConstants.AUTHENTICATION_ENDPOINT.equals(resourcePath)
+                        && SecurityConstants.AUTHENTICATION_ENDPOINT.equals(resourcePath)
         );
     }
 

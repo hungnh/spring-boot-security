@@ -33,7 +33,7 @@ public class RegistrationService implements IRegistrationService {
     @Override
     public TokenDTO register(UserDTO userDTO) throws ServiceException, ServletException {
 
-        if(emailExisted(userDTO.getEmail())) {
+        if (emailExisted(userDTO.getEmail())) {
             throw new ServiceException(ExceptionMessage.EMAIL_EXISTED);
         }
 

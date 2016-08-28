@@ -26,8 +26,8 @@ public class ExceptionHandlingController {
 
     @ExceptionHandler({Exception.class})
     public ExceptionDTO anyException(Exception ex,
-                                         HttpServletRequest request,
-                                         HttpServletResponse response) {
+                                     HttpServletRequest request,
+                                     HttpServletResponse response) {
         ExceptionDTO exceptionDTO = new ExceptionDTO();
         exceptionDTO.setException(ex.getClass().getCanonicalName());
         exceptionDTO.setMessage(ex.getMessage());
