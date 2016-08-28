@@ -1,6 +1,6 @@
 package uet.hungnh.security.service;
 
-import uet.hungnh.dto.TokenDTO;
+import uet.hungnh.security.dto.TokenDTO;
 
 public interface IAuthenticationService {
     TokenDTO authenticate();

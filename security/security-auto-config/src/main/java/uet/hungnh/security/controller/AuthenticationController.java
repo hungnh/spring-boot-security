@@ -3,8 +3,8 @@ package uet.hungnh.security.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
-import uet.hungnh.dto.TokenDTO;
 import uet.hungnh.security.constants.SecurityConstants;
+import uet.hungnh.security.dto.TokenDTO;
 import uet.hungnh.security.service.IAuthenticationService;
 
 @RestController

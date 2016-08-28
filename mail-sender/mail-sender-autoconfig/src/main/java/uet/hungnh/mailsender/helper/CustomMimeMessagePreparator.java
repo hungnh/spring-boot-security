@@ -2,10 +2,10 @@ package uet.hungnh.mailsender.helper;
 
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.mail.javamail.MimeMessagePreparator;
-import uet.hungnh.dto.AttachmentDTO;
-import uet.hungnh.dto.ContentDTO;
-import uet.hungnh.dto.EmailParamsDTO;
-import uet.hungnh.dto.RecipientDTO;
+import uet.hungnh.mailsender.dto.AttachmentDTO;
+import uet.hungnh.mailsender.dto.ContentDTO;
+import uet.hungnh.mailsender.dto.EmailParamsDTO;
+import uet.hungnh.mailsender.dto.RecipientDTO;
 import uet.hungnh.mailsender.sender.Sender;
 
 import javax.activation.DataSource;

@@ -6,9 +6,9 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import uet.hungnh.dto.UserDTO;
-import uet.hungnh.model.entity.User;
-import uet.hungnh.model.repo.UserRepository;
+import uet.hungnh.security.dto.UserDTO;
+import uet.hungnh.security.model.entity.User;
+import uet.hungnh.security.model.repo.UserRepository;
 import uet.hungnh.security.service.IUserService;
 
 @Service

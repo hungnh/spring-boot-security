@@ -5,7 +5,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import uet.hungnh.dto.TokenDTO;
+import uet.hungnh.security.dto.TokenDTO;
 import uet.hungnh.security.service.IAuthenticationService;
 import uet.hungnh.security.service.ITokenService;
 

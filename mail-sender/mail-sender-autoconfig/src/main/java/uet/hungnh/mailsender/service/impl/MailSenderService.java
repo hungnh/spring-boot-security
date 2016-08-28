@@ -3,7 +3,7 @@ package uet.hungnh.mailsender.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
-import uet.hungnh.dto.EmailParamsDTO;
+import uet.hungnh.mailsender.dto.EmailParamsDTO;
 import uet.hungnh.mailsender.helper.CustomMimeMessagePreparator;
 import uet.hungnh.mailsender.sender.Sender;
 import uet.hungnh.mailsender.service.IMailSender;

@@ -5,8 +5,8 @@ import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import uet.hungnh.dto.UserDTO;
 import uet.hungnh.security.constants.SecurityConstants;
+import uet.hungnh.security.dto.UserDTO;
 import uet.hungnh.security.service.IUserService;
 
 @RestController

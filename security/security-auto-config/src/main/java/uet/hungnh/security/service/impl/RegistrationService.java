@@ -4,12 +4,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import uet.hungnh.dto.TokenDTO;
-import uet.hungnh.dto.UserDTO;
-import uet.hungnh.exception.ExceptionMessage;
-import uet.hungnh.exception.ServiceException;
-import uet.hungnh.model.entity.User;
-import uet.hungnh.model.repo.UserRepository;
+import uet.hungnh.common.exception.ExceptionMessage;
+import uet.hungnh.common.exception.ServiceException;
+import uet.hungnh.security.dto.TokenDTO;
+import uet.hungnh.security.dto.UserDTO;
+import uet.hungnh.security.model.entity.User;
+import uet.hungnh.security.model.repo.UserRepository;
 import uet.hungnh.security.service.IAuthenticationService;
 import uet.hungnh.security.service.IRegistrationService;
 

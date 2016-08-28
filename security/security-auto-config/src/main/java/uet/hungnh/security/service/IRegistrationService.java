@@ -1,8 +1,8 @@
 package uet.hungnh.security.service;
 
-import uet.hungnh.dto.TokenDTO;
-import uet.hungnh.dto.UserDTO;
-import uet.hungnh.exception.ServiceException;
+import uet.hungnh.common.exception.ServiceException;
+import uet.hungnh.security.dto.TokenDTO;
+import uet.hungnh.security.dto.UserDTO;
 
 import javax.servlet.ServletException;
 
