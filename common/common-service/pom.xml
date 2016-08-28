@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>common</artifactId>
-        <groupId>uet.hungnh.template</groupId>
+        <groupId>uet.hungnh</groupId>
         <version>1.0.0</version>
     </parent>
     
@@ -14,7 +14,7 @@
     <dependencies>
         <!-- tag :: model-->
         <dependency>
-            <groupId>uet.hungnh.template</groupId>
+            <groupId>uet.hungnh</groupId>
             <artifactId>common-model</artifactId>
             <version>1.0.0</version>
         </dependency>

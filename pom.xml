@@ -10,7 +10,7 @@
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
-    <groupId>uet.hungnh.template</groupId>
+    <groupId>uet.hungnh</groupId>
     <artifactId>parent</artifactId>
     <version>1.0.0</version>
     <packaging>pom</packaging>
@@ -19,7 +19,7 @@
         <module>common</module>
         <module>sample</module>
         <module>security</module>
-        <module>addons</module>
+        <module>mail-sender</module>
     </modules>
 
     <properties>
