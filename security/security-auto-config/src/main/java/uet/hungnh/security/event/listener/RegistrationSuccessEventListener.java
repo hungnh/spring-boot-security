@@ -7,8 +7,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
-import org.springframework.stereotype.Component;
 import org.springframework.ui.freemarker.FreeMarkerTemplateUtils;
+import uet.hungnh.common.event.AsyncListener;
 import uet.hungnh.mailsender.dto.ContentDTO;
 import uet.hungnh.mailsender.dto.EmailParamsDTO;
 import uet.hungnh.mailsender.dto.RecipientDTO;
@@ -24,7 +24,7 @@ import java.util.Map;
 
 import static uet.hungnh.security.constants.SecurityConstant.EMAIL_CONFIRMATION_ENDPOINT;
 
-@Component
+@AsyncListener
 public class RegistrationSuccessEventListener implements ApplicationListener<OnRegistrationSuccessEvent> {
 
     private final Logger logger = LoggerFactory.getLogger(RegistrationSuccessEventListener.class);
