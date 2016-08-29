@@ -10,7 +10,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationToken;
 import org.springframework.web.filter.GenericFilterBean;
 import org.springframework.web.util.UrlPathHelper;
-import uet.hungnh.security.constants.SecurityConstants;
+import uet.hungnh.security.constants.SecurityConstant;
 
 import javax.security.sasl.AuthenticationException;
 import javax.servlet.FilterChain;
@@ -40,9 +40,9 @@ public class AuthenticationFilter extends GenericFilterBean {
         HttpServletRequest httpRequest = asHttp(request);
         HttpServletResponse httpResponse = asHttp(response);
 
-        Optional<String> username = Optional.ofNullable(httpRequest.getHeader(SecurityConstants.USERNAME_HEADER));
-        Optional<String> password = Optional.ofNullable(httpRequest.getHeader(SecurityConstants.PASSWORD_HEADER));
-        Optional<String> token = Optional.ofNullable(httpRequest.getHeader(SecurityConstants.TOKEN_HEADER));
+        Optional<String> username = Optional.ofNullable(httpRequest.getHeader(SecurityConstant.USERNAME_HEADER));
+        Optional<String> password = Optional.ofNullable(httpRequest.getHeader(SecurityConstant.PASSWORD_HEADER));
+        Optional<String> token = Optional.ofNullable(httpRequest.getHeader(SecurityConstant.TOKEN_HEADER));
 
         String resourcePath = (new UrlPathHelper()).getPathWithinApplication(httpRequest);
 
@@ -108,7 +108,7 @@ public class AuthenticationFilter extends GenericFilterBean {
     private boolean postToAuthenticate(HttpServletRequest httpRequest, String resourcePath) {
         return (
                 "POST".equals(httpRequest.getMethod())
-                        && SecurityConstants.AUTHENTICATION_ENDPOINT.equals(resourcePath)
+                        && SecurityConstant.LOGIN_ENDPOINT.equals(resourcePath)
         );
     }
 
@@ -119,6 +119,4 @@ public class AuthenticationFilter extends GenericFilterBean {
     private HttpServletRequest asHttp(ServletRequest request) {
         return (HttpServletRequest) request;
     }
-
-
 }

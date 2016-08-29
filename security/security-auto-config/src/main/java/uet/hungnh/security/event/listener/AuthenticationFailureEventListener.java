@@ -1,4 +1,4 @@
-package uet.hungnh.security.listener;
+package uet.hungnh.security.event.listener;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;

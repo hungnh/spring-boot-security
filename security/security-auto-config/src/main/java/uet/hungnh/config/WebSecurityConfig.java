@@ -22,7 +22,6 @@ import org.springframework.security.web.authentication.www.BasicAuthenticationFi
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import uet.hungnh.security.constants.SecurityConstants;
 import uet.hungnh.security.filter.AuthenticationFilter;
 import uet.hungnh.security.handler.CustomLogoutSuccessHandler;
 import uet.hungnh.security.handler.TokenClearingLogoutHandler;
@@ -31,6 +30,8 @@ import uet.hungnh.security.service.ITokenService;
 import uet.hungnh.security.service.impl.InMemoryTokenService;
 
 import javax.servlet.http.HttpServletResponse;
+
+import static uet.hungnh.security.constants.SecurityConstant.*;
 
 
 @Configuration
@@ -62,17 +63,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
-                .antMatchers(SecurityConstants.REGISTER_ENDPOINT).permitAll()
-                .antMatchers(SecurityConstants.AUTHENTICATION_ENDPOINT).permitAll()
-                .antMatchers(SecurityConstants.LOGOUT_ENDPOINT).permitAll()
+                .antMatchers(REGISTRATION_ENDPOINT).permitAll()
+                .antMatchers(LOGIN_ENDPOINT).permitAll()
+                .antMatchers(LOGOUT_ENDPOINT).permitAll()
                 .and()
                 .exceptionHandling().authenticationEntryPoint(unauthorizedEntryPoint())
                 .and()
                 .logout()
-                .logoutSuccessHandler(logoutSuccessHandler())
-                .logoutUrl(SecurityConstants.LOGOUT_ENDPOINT)
+                .logoutUrl(LOGOUT_ENDPOINT)
                 .addLogoutHandler(tokenClearingLogoutHandler())
-        ;
+                .logoutSuccessHandler(logoutSuccessHandler())
 
         http.addFilterBefore(new AuthenticationFilter(authenticationManager()), BasicAuthenticationFilter.class);
     }

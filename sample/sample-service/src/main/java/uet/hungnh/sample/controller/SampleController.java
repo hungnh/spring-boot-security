@@ -8,7 +8,7 @@ import uet.hungnh.sample.service.ISampleService;
 
 import java.util.UUID;
 
-import static uet.hungnh.security.constants.SecurityConstants.ROLE_USER;
+import static uet.hungnh.security.constants.SecurityConstant.ROLE_USER;
 
 @RestController
 @RequestMapping("/sample")
@@ -23,7 +23,7 @@ public class SampleController {
         return "Sample OK!";
     }
 
-    @PutMapping
+    @PostMapping
     public SampleDTO create(@RequestBody SampleDTO sampleDTO) {
         return sampleService.create(sampleDTO);
     }
@@ -33,7 +33,7 @@ public class SampleController {
         return sampleService.retrieve(id);
     }
 
-    @PostMapping
+    @PutMapping
     public SampleDTO update(@RequestBody SampleDTO sampleDTO) {
         return sampleService.update(sampleDTO);
     }

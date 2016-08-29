@@ -2,10 +2,12 @@ package uet.hungnh.security.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.util.UUID;
+
 import static com.fasterxml.jackson.annotation.JsonProperty.Access.WRITE_ONLY;
 
 public class UserDTO {
-    private Long id;
+    private UUID id;
     private String firstName;
     private String lastName;
     private String username;
@@ -14,11 +16,11 @@ public class UserDTO {
     @JsonProperty(access = WRITE_ONLY)
     private String password;
 
-    public Long getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 

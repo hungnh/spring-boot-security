@@ -1,4 +1,4 @@
-package uet.hungnh.mailsender.dto;
+package uet.hungnh.mailsender.enums;
 
 public enum RecipientType {
     TO("To"),

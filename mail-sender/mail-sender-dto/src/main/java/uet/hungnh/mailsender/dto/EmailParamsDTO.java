@@ -4,10 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EmailParamsDTO {
-    ContentDTO contentDTO;
+
+    private ContentDTO content;
     private String subject;
-    private List<RecipientDTO> recipientDTOList = new ArrayList<>();
-    private List<AttachmentDTO> attachmentDTOList = new ArrayList<>();
+    private List<RecipientDTO> recipients = new ArrayList<>();
+    private List<AttachmentDTO> attachments = new ArrayList<>();
 
     public String getSubject() {
         return subject;
@@ -17,28 +18,28 @@ public class EmailParamsDTO {
         this.subject = subject;
     }
 
-    public List<RecipientDTO> getRecipientDTOList() {
-        return recipientDTOList;
+    public List<RecipientDTO> getRecipients() {
+        return recipients;
     }
 
-    public void setRecipientDTOList(List<RecipientDTO> recipientDTOList) {
-        this.recipientDTOList = recipientDTOList;
+    public void setRecipients(List<RecipientDTO> recipients) {
+        this.recipients = recipients;
     }
 
-    public ContentDTO getContentDTO() {
-        return contentDTO;
+    public ContentDTO getContent() {
+        return content;
     }
 
-    public void setContentDTO(ContentDTO contentDTO) {
-        this.contentDTO = contentDTO;
+    public void setContent(ContentDTO content) {
+        this.content = content;
     }
 
-    public List<AttachmentDTO> getAttachmentDTOList() {
-        return attachmentDTOList;
+    public List<AttachmentDTO> getAttachments() {
+        return attachments;
     }
 
-    public void setAttachmentDTOList(List<AttachmentDTO> attachmentDTOList) {
-        this.attachmentDTOList = attachmentDTOList;
+    public void setAttachments(List<AttachmentDTO> attachments) {
+        this.attachments = attachments;
     }
 }
 

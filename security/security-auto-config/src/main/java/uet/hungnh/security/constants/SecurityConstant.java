@@ -1,6 +1,6 @@
 package uet.hungnh.security.constants;
 
-public class SecurityConstants {
+public class SecurityConstant {
 
     // HEADERS
     public static final String USERNAME_HEADER = "X-Auth-Username";
@@ -14,7 +14,8 @@ public class SecurityConstants {
     public static final String ROLE_ADMIN = "ROLE_ADMIN";
 
     // ENDPOINTS
-    public static final String AUTHENTICATION_ENDPOINT = "/authenticate";
-    public static final String REGISTER_ENDPOINT = "/register";
-    public static final String LOGOUT_ENDPOINT = "/logout";
+    public static final String LOGIN_ENDPOINT = "/user/login";
+    public static final String LOGOUT_ENDPOINT = "/user/logout";
+    public static final String REGISTRATION_ENDPOINT = "/user/register";
+    public static final String EMAIL_CONFIRMATION_ENDPOINT = "/user/registration/confirmation";
 }

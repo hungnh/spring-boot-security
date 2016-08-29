@@ -8,7 +8,7 @@ import uet.hungnh.security.service.ITokenService;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import static uet.hungnh.security.constants.SecurityConstants.TOKEN_HEADER;
+import static uet.hungnh.security.constants.SecurityConstant.TOKEN_HEADER;
 
 public class TokenClearingLogoutHandler implements LogoutHandler {
 

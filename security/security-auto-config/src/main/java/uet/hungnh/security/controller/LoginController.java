@@ -3,18 +3,19 @@ package uet.hungnh.security.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
-import uet.hungnh.security.constants.SecurityConstants;
 import uet.hungnh.security.dto.TokenDTO;
-import uet.hungnh.security.service.IAuthenticationService;
+import uet.hungnh.security.service.IUserService;
+
+import static uet.hungnh.security.constants.SecurityConstant.LOGIN_ENDPOINT;
 
 @RestController
-public class AuthenticationController {
+public class LoginController {
 
     @Autowired
-    private IAuthenticationService authenticationService;
+    private IUserService userService;
 
-    @PostMapping(value = SecurityConstants.AUTHENTICATION_ENDPOINT)
+    @PostMapping(value = LOGIN_ENDPOINT)
     public TokenDTO authenticate() {
-        return authenticationService.authenticate();
+        return userService.authenticate();
     }
 }

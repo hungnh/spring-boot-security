@@ -9,7 +9,7 @@ import org.springframework.ui.freemarker.FreeMarkerTemplateUtils;
 import uet.hungnh.mailsender.dto.ContentDTO;
 import uet.hungnh.mailsender.dto.EmailParamsDTO;
 import uet.hungnh.mailsender.dto.RecipientDTO;
-import uet.hungnh.mailsender.dto.RecipientType;
+import uet.hungnh.mailsender.enums.RecipientType;
 import uet.hungnh.mailsender.service.IMailSender;
 import uet.hungnh.security.model.entity.User;
 
@@ -39,7 +39,7 @@ public class SampleTest extends BaseTest {
         emailParamsDTO.setSubject("a subject");
 
         RecipientDTO recipientDTO = new RecipientDTO(RecipientType.TO, "hungnh@higgsup.com");
-        emailParamsDTO.getRecipientDTOList().add(recipientDTO);
+        emailParamsDTO.getRecipients().add(recipientDTO);
 
         ContentDTO contentDTO = new ContentDTO();
 
@@ -52,7 +52,7 @@ public class SampleTest extends BaseTest {
 
         contentDTO.setHtmlText(FreeMarkerTemplateUtils.processTemplateIntoString(fmTemplate, model));
 
-        emailParamsDTO.setContentDTO(contentDTO);
+        emailParamsDTO.setContent(contentDTO);
 
         mailSender.send(emailParamsDTO);
     }

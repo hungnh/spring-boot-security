@@ -1,5 +1,7 @@
 package uet.hungnh.mailsender.dto;
 
+import uet.hungnh.mailsender.enums.RecipientType;
+
 public class RecipientDTO {
     private RecipientType recipientType;
     private String emailAddress;

@@ -36,14 +36,14 @@ public class CustomMimeMessagePreparator implements MimeMessagePreparator {
     }
 
     private void addContent(MimeMessageHelper mimeMessageHelper) throws MessagingException {
-        ContentDTO emailContent = emailParams.getContentDTO();
+        ContentDTO emailContent = emailParams.getContent();
         String plainText = emailContent.getPlainText() != null ? emailContent.getPlainText() : "";
         String htmlText = emailContent.getHtmlText() != null ? emailContent.getHtmlText() : plainText;
         mimeMessageHelper.setText(plainText, htmlText);
     }
 
     private void addAttachments(MimeMessageHelper mimeMessageHelper) throws MessagingException {
-        for (AttachmentDTO attachment : emailParams.getAttachmentDTOList()) {
+        for (AttachmentDTO attachment : emailParams.getAttachments()) {
             DataSource dataSource = new ByteArrayDataSource(attachment.getData(), attachment.getType().getValue());
             mimeMessageHelper.addAttachment(attachment.getName(), dataSource);
         }
@@ -51,21 +51,21 @@ public class CustomMimeMessagePreparator implements MimeMessagePreparator {
 
     private void addRecipients(MimeMessageHelper mimeMessageHelper) throws MessagingException {
         mimeMessageHelper.setTo(
-                emailParams.getRecipientDTOList().stream()
+                emailParams.getRecipients().stream()
                         .filter(recipient -> recipient.getRecipientType().toString().equals(Message.RecipientType.TO.toString()))
                         .map(RecipientDTO::getEmailAddress)
                         .collect(Collectors.toList()).stream().toArray(String[]::new)
         );
 
         mimeMessageHelper.setCc(
-                emailParams.getRecipientDTOList().stream()
+                emailParams.getRecipients().stream()
                         .filter(recipient -> recipient.getRecipientType().toString().equals(Message.RecipientType.CC.toString()))
                         .map(RecipientDTO::getEmailAddress)
                         .collect(Collectors.toList()).stream().toArray(String[]::new)
         );
 
         mimeMessageHelper.setBcc(
-                emailParams.getRecipientDTOList().stream()
+                emailParams.getRecipients().stream()
                         .filter(recipient -> recipient.getRecipientType().toString().equals(Message.RecipientType.BCC.toString()))
                         .map(RecipientDTO::getEmailAddress)
                         .collect(Collectors.toList()).stream().toArray(String[]::new)

@@ -8,12 +8,14 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import uet.hungnh.security.constants.SecurityConstants;
 import uet.hungnh.security.model.entity.User;
 import uet.hungnh.security.model.repo.UserRepository;
 import uet.hungnh.security.service.LoginAttemptService;
 
 import javax.servlet.http.HttpServletRequest;
+
+import static uet.hungnh.security.constants.SecurityConstant.FORWARDED_FOR_HEADER;
+import static uet.hungnh.security.constants.SecurityConstant.ROLE_USER;
 
 @Service
 @Transactional(rollbackFor = Exception.class)
@@ -44,12 +46,12 @@ public class CustomUserDetailsService implements UserDetailsService {
         return new org.springframework.security.core.userdetails.User(
                 user.getUsername(),
                 user.getPassword(),
-                AuthorityUtils.commaSeparatedStringToAuthorityList(SecurityConstants.ROLE_USER)
+                AuthorityUtils.commaSeparatedStringToAuthorityList(ROLE_USER)
         );
     }
 
     private String getClientIp() {
-        final String xfHeader = request.getHeader(SecurityConstants.FORWARDED_FOR_HEADER);
+        final String xfHeader = request.getHeader(FORWARDED_FOR_HEADER);
         if (xfHeader == null) {
             return request.getRemoteAddr();
         }
