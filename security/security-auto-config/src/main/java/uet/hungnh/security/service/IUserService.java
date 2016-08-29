@@ -1,5 +1,6 @@
 package uet.hungnh.security.service;
 
+import uet.hungnh.common.dto.GenericResponse;
 import uet.hungnh.common.exception.ServiceException;
 import uet.hungnh.security.dto.TokenDTO;
 import uet.hungnh.security.dto.UserDTO;
@@ -15,4 +16,6 @@ public interface IUserService {
     UserDTO retrieve();
 
     String createVerificationTokenForUser(User user);
+
+    GenericResponse validateVerificationToken(String token);
 }

@@ -9,6 +9,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import uet.hungnh.common.dto.GenericResponse;
 import uet.hungnh.common.exception.ExceptionMessage;
 import uet.hungnh.common.exception.ServiceException;
 import uet.hungnh.security.dto.TokenDTO;
@@ -23,6 +24,8 @@ import uet.hungnh.security.service.IUserService;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import java.time.Instant;
+import java.util.Date;
 import java.util.UUID;
 
 @Service
@@ -97,6 +100,23 @@ public class UserService implements IUserService {
         verificationToken.setUser(user);
         verificationTokenRepository.save(verificationToken);
         return verificationToken.getToken();
+    }
+
+    @Override
+    public GenericResponse validateVerificationToken(String token) {
+        VerificationToken verificationToken = verificationTokenRepository.findByToken(token);
+        if (verificationToken == null) {
+            return new GenericResponse("Verification token is invalid");
+        }
+
+        Date now = Date.from(Instant.now());
+        if (verificationToken.getExpiredDate().before(now)) {
+            return new GenericResponse("Verification token is expired!");
+        }
+
+        verificationTokenRepository.delete(verificationToken);
+
+        return new GenericResponse("Verification success");
     }
 
     private String getAppUrl() {
