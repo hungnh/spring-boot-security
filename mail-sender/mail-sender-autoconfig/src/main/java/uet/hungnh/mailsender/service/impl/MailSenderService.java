@@ -8,9 +8,6 @@ import uet.hungnh.mailsender.helper.CustomMimeMessagePreparator;
 import uet.hungnh.mailsender.sender.Sender;
 import uet.hungnh.mailsender.service.IMailSender;
 
-/**
- * Created by Admin on 12/25/2015.
- */
 @Service
 public class MailSenderService implements IMailSender {
 

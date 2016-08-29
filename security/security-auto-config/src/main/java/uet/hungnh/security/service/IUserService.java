@@ -17,5 +17,5 @@ public interface IUserService {
 
     String createVerificationTokenForUser(User user);
 
-    GenericResponse validateVerificationToken(String token);
+    GenericResponse validateVerificationToken(String token) throws ServiceException;
 }

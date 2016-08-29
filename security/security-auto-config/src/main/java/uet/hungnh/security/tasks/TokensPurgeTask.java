@@ -16,7 +16,7 @@ public class TokensPurgeTask {
     @Autowired
     VerificationTokenRepository verificationTokenRepository;
 
-    @Scheduled(cron = "${token.purge.cron.expression}")
+    @Scheduled(cron = "${token.purge.cron-expression}")
     public void purgeExpired() {
         Date now = Date.from(Instant.now());
         verificationTokenRepository.deleteAllExpiredSince(now);

@@ -103,20 +103,20 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public GenericResponse validateVerificationToken(String token) {
+    public GenericResponse validateVerificationToken(String token) throws ServiceException {
         VerificationToken verificationToken = verificationTokenRepository.findByToken(token);
         if (verificationToken == null) {
-            return new GenericResponse("Verification token is invalid");
+            throw new ServiceException(ExceptionMessage.VERIFICATION_TOKEN_INVALID);
         }
 
         Date now = Date.from(Instant.now());
         if (verificationToken.getExpiredDate().before(now)) {
-            return new GenericResponse("Verification token is expired!");
+            throw new ServiceException(ExceptionMessage.VERIFICATION_TOKEN_EXPIRED);
         }
 
         verificationTokenRepository.delete(verificationToken);
 
-        return new GenericResponse("Verification success");
+        return new GenericResponse("success");
     }
 
     private String getAppUrl() {

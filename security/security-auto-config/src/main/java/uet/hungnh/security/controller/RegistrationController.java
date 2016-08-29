@@ -25,7 +25,7 @@ public class RegistrationController {
     }
 
     @GetMapping(value = EMAIL_CONFIRMATION_ENDPOINT)
-    public GenericResponse confirmRegistration(@RequestParam("token") String token) {
+    public GenericResponse confirmRegistration(@RequestParam("token") String token) throws ServiceException {
         return userService.validateVerificationToken(token);
     }
 }
