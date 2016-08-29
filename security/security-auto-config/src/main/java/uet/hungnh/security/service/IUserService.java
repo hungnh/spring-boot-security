@@ -11,7 +11,7 @@ import javax.servlet.ServletException;
 public interface IUserService {
     TokenDTO register(UserDTO userDTO) throws ServiceException, ServletException;
 
-    TokenDTO authenticate();
+    TokenDTO login();
 
     UserDTO retrieve();
 

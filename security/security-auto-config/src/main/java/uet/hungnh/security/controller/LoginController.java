@@ -15,7 +15,7 @@ public class LoginController {
     private IUserService userService;
 
     @PostMapping(value = LOGIN_ENDPOINT)
-    public TokenDTO authenticate() {
-        return userService.authenticate();
+    public TokenDTO login() {
+        return userService.login();
     }
 }

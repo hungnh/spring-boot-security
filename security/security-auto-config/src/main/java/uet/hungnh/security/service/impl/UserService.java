@@ -69,7 +69,7 @@ public class UserService implements IUserService {
         userRepository.save(user);
 
         request.login(user.getUsername(), rawPassword);
-        TokenDTO responseToken = authenticate();
+        TokenDTO responseToken = login();
 
         eventPublisher.publishEvent(new OnRegistrationSuccessEvent(getAppUrl(), user));
 
@@ -77,7 +77,7 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public TokenDTO authenticate() {
+    public TokenDTO login() {
         UsernamePasswordAuthenticationToken auth = (UsernamePasswordAuthenticationToken) SecurityContextHolder.getContext().getAuthentication();
         String authToken = tokenService.generateNewToken();
         auth.setDetails(authToken);
