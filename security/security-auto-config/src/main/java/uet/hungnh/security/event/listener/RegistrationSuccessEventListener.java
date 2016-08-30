@@ -14,7 +14,7 @@ import uet.hungnh.mailsender.dto.EmailParamsDTO;
 import uet.hungnh.mailsender.dto.RecipientDTO;
 import uet.hungnh.mailsender.enums.RecipientType;
 import uet.hungnh.mailsender.service.IMailSender;
-import uet.hungnh.security.event.OnRegistrationSuccessEvent;
+import uet.hungnh.security.event.RegistrationSuccessEvent;
 import uet.hungnh.security.model.entity.User;
 import uet.hungnh.security.service.IUserService;
 
@@ -25,7 +25,7 @@ import java.util.Map;
 import static uet.hungnh.security.constants.SecurityConstant.EMAIL_CONFIRMATION_ENDPOINT;
 
 @AsyncListener
-public class RegistrationSuccessEventListener implements ApplicationListener<OnRegistrationSuccessEvent> {
+public class RegistrationSuccessEventListener implements ApplicationListener<RegistrationSuccessEvent> {
 
     private final Logger logger = LoggerFactory.getLogger(RegistrationSuccessEventListener.class);
 
@@ -37,7 +37,7 @@ public class RegistrationSuccessEventListener implements ApplicationListener<OnR
     private IUserService userService;
 
     @Override
-    public void onApplicationEvent(OnRegistrationSuccessEvent event) {
+    public void onApplicationEvent(RegistrationSuccessEvent event) {
         sendConfirmationEmail(event.getUser(), event.getAppUrl());
     }
 

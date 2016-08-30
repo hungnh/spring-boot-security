@@ -8,6 +8,12 @@ public abstract class GenericException extends Exception {
     public GenericException() {
     }
 
+    public GenericException(String message, int httpStatusCode) {
+        super(message);
+        this.message = super.getMessage();
+        this.httpStatusCode = httpStatusCode;
+    }
+
     public GenericException(ExceptionMessage exceptionMessage) {
         super(exceptionMessage.getMessage());
         this.message = super.getMessage();

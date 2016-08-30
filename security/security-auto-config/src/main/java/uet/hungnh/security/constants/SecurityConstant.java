@@ -18,4 +18,7 @@ public class SecurityConstant {
     public static final String LOGOUT_ENDPOINT = "/user/logout";
     public static final String REGISTRATION_ENDPOINT = "/user/registration";
     public static final String EMAIL_CONFIRMATION_ENDPOINT = "/user/registration/confirmation";
+    public static final String REQUEST_RESET_PASSWORD_ENDPOINT = "/user/password/request-reset";
+    public static final String RESET_PASSWORD_ENDPOINT = "/user/password/reset";
+    public static final String CHANGE_PASSWORD_ENDPOINT = "/user/password/update";
 }

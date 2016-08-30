@@ -65,9 +65,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
-                .antMatchers(REGISTRATION_ENDPOINT).permitAll()
-                .antMatchers(LOGIN_ENDPOINT).permitAll()
-                .antMatchers(LOGOUT_ENDPOINT).permitAll()
+                .antMatchers(publicAPIs()).permitAll()
                 .and()
                 .exceptionHandling().authenticationEntryPoint(unauthorizedEntryPoint())
                 .and()
@@ -77,6 +75,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutSuccessHandler(logoutSuccessHandler());
 
         http.addFilterBefore(new AuthenticationFilter(authenticationManager()), BasicAuthenticationFilter.class);
+    }
+
+    private String[] publicAPIs() {
+        return new String[]{
+                REGISTRATION_ENDPOINT, LOGIN_ENDPOINT,
+                LOGOUT_ENDPOINT, EMAIL_CONFIRMATION_ENDPOINT,
+                REQUEST_RESET_PASSWORD_ENDPOINT, RESET_PASSWORD_ENDPOINT
+        };
     }
 
     private CorsConfigurationSource corsConfigurationSource() {
