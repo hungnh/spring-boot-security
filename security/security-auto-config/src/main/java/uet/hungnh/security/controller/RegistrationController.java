@@ -10,6 +10,7 @@ import uet.hungnh.security.exception.TokenValidationException;
 import uet.hungnh.security.service.IUserService;
 
 import javax.servlet.ServletException;
+import javax.validation.Valid;
 
 import static uet.hungnh.security.constants.SecurityConstant.EMAIL_CONFIRMATION_ENDPOINT;
 import static uet.hungnh.security.constants.SecurityConstant.REGISTRATION_ENDPOINT;
@@ -21,7 +22,7 @@ public class RegistrationController {
     private IUserService userService;
 
     @PostMapping(value = REGISTRATION_ENDPOINT)
-    public TokenDTO registration(@RequestBody UserDTO userDTO)
+    public TokenDTO registration(@RequestBody @Valid UserDTO userDTO)
             throws ServletException, EmailExistedException {
         return userService.register(userDTO);
     }

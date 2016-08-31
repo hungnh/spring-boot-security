@@ -12,11 +12,21 @@
     <artifactId>security-dto</artifactId>
 
     <dependencies>
+        <!-- tag :: dto -->
         <dependency>
             <groupId>uet.hungnh</groupId>
             <artifactId>common-dto</artifactId>
             <version>1.0.0</version>
         </dependency>
+        <!-- end :: dto -->
+
+        <!-- tag :: validation -->
+        <dependency>
+            <groupId>org.passay</groupId>
+            <artifactId>passay</artifactId>
+            <version>${passay.version}</version>
+        </dependency>
+        <!-- end :: validation -->
     </dependencies>
 
 </project>

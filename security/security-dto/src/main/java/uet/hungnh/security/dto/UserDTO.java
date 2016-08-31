@@ -1,7 +1,10 @@
 package uet.hungnh.security.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import uet.hungnh.security.dto.validation.ValidEmail;
+import uet.hungnh.security.dto.validation.ValidPassword;
 
+import javax.validation.constraints.NotNull;
 import java.util.UUID;
 
 import static com.fasterxml.jackson.annotation.JsonProperty.Access.WRITE_ONLY;
@@ -11,9 +14,14 @@ public class UserDTO {
     private String firstName;
     private String lastName;
     private String username;
+
+    @NotNull
+    @ValidEmail
     private String email;
 
     @JsonProperty(access = WRITE_ONLY)
+    @NotNull
+    @ValidPassword
     private String password;
 
     public UUID getId() {

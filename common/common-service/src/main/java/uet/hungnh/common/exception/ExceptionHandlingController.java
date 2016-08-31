@@ -1,5 +1,8 @@
 package uet.hungnh.common.exception;
 
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -21,6 +24,21 @@ public class ExceptionHandlingController {
         exceptionDTO.setException(ex.getClass().getCanonicalName());
         exceptionDTO.setMessage(ex.getMessage());
         response.setStatus(ex.getHttpStatusCode());
+        return exceptionDTO;
+    }
+
+    @ExceptionHandler({MethodArgumentNotValidException.class})
+    public ExceptionDTO validationException(MethodArgumentNotValidException ex,
+                                            HttpServletRequest request,
+                                            HttpServletResponse response) {
+        BindingResult bindingResult = ex.getBindingResult();
+        FieldError error = bindingResult.getFieldError();
+
+        ExceptionDTO exceptionDTO = new ExceptionDTO();
+        exceptionDTO.setException(ex.getClass().getCanonicalName());
+        exceptionDTO.setMessage(error.getDefaultMessage());
+        response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+
         return exceptionDTO;
     }
 

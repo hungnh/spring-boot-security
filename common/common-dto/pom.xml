@@ -17,10 +17,19 @@
             <artifactId>jackson-databind</artifactId>
             <scope>compile</scope>
         </dependency>
+
         <dependency>
             <groupId>joda-time</groupId>
             <artifactId>joda-time</artifactId>
         </dependency>
+
+        <!-- tag :: validation -->
+        <dependency>
+            <groupId>javax.validation</groupId>
+            <artifactId>validation-api</artifactId>
+            <version>${validation-api.version}</version>
+        </dependency>
+        <!-- end :: validation -->
     </dependencies>
 
 </project>
