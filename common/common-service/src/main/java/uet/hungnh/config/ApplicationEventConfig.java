@@ -18,11 +18,11 @@ public class ApplicationEventConfig {
         return applicationEventMulticaster;
     }
 
-    private SimpleApplicationEventMulticaster syncEventMulticaster() {
+    private ApplicationEventMulticaster syncEventMulticaster() {
         return new SimpleApplicationEventMulticaster();
     }
 
-    private SimpleApplicationEventMulticaster asyncEventMulticaster() {
+    private ApplicationEventMulticaster asyncEventMulticaster() {
         SimpleApplicationEventMulticaster asyncEventMulticaster = new SimpleApplicationEventMulticaster();
         asyncEventMulticaster.setTaskExecutor(new SimpleAsyncTaskExecutor());
         return asyncEventMulticaster;

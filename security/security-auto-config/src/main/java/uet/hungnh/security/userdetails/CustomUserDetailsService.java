@@ -1,8 +1,7 @@
-package uet.hungnh.security.service.impl;
+package uet.hungnh.security.userdetails;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.LockedException;
-import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -15,7 +14,6 @@ import uet.hungnh.security.service.LoginAttemptService;
 import javax.servlet.http.HttpServletRequest;
 
 import static uet.hungnh.security.constants.SecurityConstant.FORWARDED_FOR_HEADER;
-import static uet.hungnh.security.constants.SecurityConstant.ROLE_USER;
 
 @Service
 @Transactional(rollbackFor = Exception.class)
@@ -43,11 +41,7 @@ public class CustomUserDetailsService implements UserDetailsService {
             throw new UsernameNotFoundException("No user found with username : " + username);
         }
 
-        return new org.springframework.security.core.userdetails.User(
-                user.getUsername(),
-                user.getPassword(),
-                AuthorityUtils.commaSeparatedStringToAuthorityList(ROLE_USER)
-        );
+        return new CustomUserDetails(user);
     }
 
     private String getClientIp() {
