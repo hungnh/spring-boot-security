@@ -32,7 +32,6 @@ import uet.hungnh.security.model.entity.VerificationToken;
 import uet.hungnh.security.model.repo.PasswordResetTokenRepository;
 import uet.hungnh.security.model.repo.UserRepository;
 import uet.hungnh.security.model.repo.VerificationTokenRepository;
-import uet.hungnh.security.service.ITokenService;
 import uet.hungnh.security.service.IUserService;
 
 import javax.servlet.ServletException;
