@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,6 +18,7 @@ import uet.hungnh.mailsender.dto.EmailParamsDTO;
 import uet.hungnh.mailsender.dto.RecipientDTO;
 import uet.hungnh.mailsender.enums.RecipientType;
 import uet.hungnh.mailsender.service.IMailSender;
+import uet.hungnh.security.context.ISecurityContextFacade;
 import uet.hungnh.security.dto.PasswordDTO;
 import uet.hungnh.security.dto.TokenDTO;
 import uet.hungnh.security.dto.UserDTO;
@@ -72,6 +72,8 @@ public class UserService implements IUserService {
     private VerificationTokenRepository verificationTokenRepository;
     @Autowired
     private PasswordResetTokenRepository passwordResetTokenRepository;
+    @Autowired
+    private ISecurityContextFacade securityContext;
 
     @Override
     public TokenDTO register(UserDTO userDTO) throws ServletException, EmailExistedException {
@@ -102,7 +104,7 @@ public class UserService implements IUserService {
 
     @Override
     public TokenDTO login() {
-        UsernamePasswordAuthenticationToken auth = (UsernamePasswordAuthenticationToken) SecurityContextHolder.getContext().getAuthentication();
+        UsernamePasswordAuthenticationToken auth = (UsernamePasswordAuthenticationToken) securityContext.getAuthentication();
         String authToken = tokenService.generateNewToken();
         auth.setDetails(authToken);
         tokenService.store(authToken, auth);
@@ -112,7 +114,7 @@ public class UserService implements IUserService {
     @Override
     @Transactional(readOnly = true)
     public UserDTO retrieve() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Authentication authentication = securityContext.getAuthentication();
         User user = userRepository.findByUsername(authentication.getName());
         return mapper.map(user, UserDTO.class);
     }
