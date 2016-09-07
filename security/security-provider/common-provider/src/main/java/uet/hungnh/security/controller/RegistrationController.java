@@ -1,7 +1,6 @@
 package uet.hungnh.security.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
 import uet.hungnh.common.dto.GenericResponse;
 import uet.hungnh.security.dto.TokenDTO;
 import uet.hungnh.security.dto.UserDTO;
