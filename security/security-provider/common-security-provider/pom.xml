@@ -7,9 +7,9 @@
         <groupId>uet.hungnh</groupId>
         <version>1.0.0</version>
     </parent>
-    <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>common-provider</artifactId>
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>common-security-provider</artifactId>
 
     <dependencies>
         <!-- tag :: model -->

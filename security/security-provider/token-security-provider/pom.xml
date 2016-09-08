@@ -9,12 +9,12 @@
     </parent>
     
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>token-provider</artifactId>
+    <artifactId>token-security-provider</artifactId>
 
     <dependencies>
         <dependency>
             <groupId>uet.hungnh</groupId>
-            <artifactId>common-provider</artifactId>
+            <artifactId>common-security-provider</artifactId>
             <version>1.0.0</version>
         </dependency>
     </dependencies>

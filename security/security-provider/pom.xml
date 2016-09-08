@@ -11,9 +11,10 @@
     <modelVersion>4.0.0</modelVersion>
     <artifactId>security-provider</artifactId>
     <packaging>pom</packaging>
+
     <modules>
-        <module>common-provider</module>
-        <module>token-provider</module>
+        <module>common-security-provider</module>
+        <module>token-security-provider</module>
     </modules>
 
 
