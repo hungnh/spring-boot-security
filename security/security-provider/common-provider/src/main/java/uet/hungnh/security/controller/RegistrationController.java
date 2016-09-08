@@ -7,9 +7,11 @@ import uet.hungnh.security.dto.TokenDTO;
 import uet.hungnh.security.dto.UserDTO;
 import uet.hungnh.security.exception.EmailExistedException;
 import uet.hungnh.security.exception.TokenValidationException;
-import uet.hungnh.security.service.IUserService;
+import uet.hungnh.security.service.ILoginService;
+import uet.hungnh.security.service.IRegisterService;
 
 import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import static uet.hungnh.security.constants.SecurityConstant.EMAIL_CONFIRMATION_ENDPOINT;
@@ -19,17 +21,24 @@ import static uet.hungnh.security.constants.SecurityConstant.REGISTRATION_ENDPOI
 public class RegistrationController {
 
     @Autowired
-    private IUserService userService;
+    private IRegisterService registerService;
+    @Autowired
+    private ILoginService loginService;
+    @Autowired
+    private HttpServletRequest request;
 
     @PostMapping(value = REGISTRATION_ENDPOINT)
     public TokenDTO registration(@RequestBody @Valid UserDTO userDTO)
             throws ServletException, EmailExistedException {
-        return userService.register(userDTO);
+        registerService.register(userDTO);
+        request.login(userDTO.getUsername(), userDTO.getPassword());
+        TokenDTO responseToken = loginService.login();
+        return responseToken;
     }
 
     @GetMapping(value = EMAIL_CONFIRMATION_ENDPOINT)
     public GenericResponse confirmRegistration(@RequestParam("token") String token)
             throws TokenValidationException {
-        return userService.validateVerificationToken(token);
+        return registerService.validateVerificationToken(token);
     }
 }

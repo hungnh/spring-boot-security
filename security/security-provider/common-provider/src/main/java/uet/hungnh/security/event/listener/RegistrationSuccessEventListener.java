@@ -16,7 +16,7 @@ import uet.hungnh.mailsender.enums.RecipientType;
 import uet.hungnh.mailsender.service.IMailSender;
 import uet.hungnh.security.event.RegistrationSuccessEvent;
 import uet.hungnh.security.model.entity.User;
-import uet.hungnh.security.service.IUserService;
+import uet.hungnh.security.service.IRegisterService;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -34,7 +34,7 @@ public class RegistrationSuccessEventListener implements ApplicationListener<Reg
     @Autowired
     private IMailSender mailSender;
     @Autowired
-    private IUserService userService;
+    private IRegisterService registerService;
 
     @Override
     public void onApplicationEvent(RegistrationSuccessEvent event) {
@@ -55,7 +55,7 @@ public class RegistrationSuccessEventListener implements ApplicationListener<Reg
             Map<String, Object> templateModel = new HashMap<>();
             templateModel.put("user", user);
 
-            String verificationToken = userService.createVerificationTokenForUser(user);
+            String verificationToken = registerService.createVerificationTokenForUser(user);
             String verificationLink = String.format("%s%s?token=%s", appUrl, EMAIL_CONFIRMATION_ENDPOINT, verificationToken);
             templateModel.put("verificationLink", verificationLink);
 

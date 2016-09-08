@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import uet.hungnh.security.dto.TokenDTO;
-import uet.hungnh.security.service.IUserService;
+import uet.hungnh.security.service.ILoginService;
 
 import static uet.hungnh.security.constants.SecurityConstant.LOGIN_ENDPOINT;
 
@@ -12,10 +12,10 @@ import static uet.hungnh.security.constants.SecurityConstant.LOGIN_ENDPOINT;
 public class LoginController {
 
     @Autowired
-    private IUserService userService;
+    private ILoginService loginService;
 
     @PostMapping(value = LOGIN_ENDPOINT)
     public TokenDTO login() {
-        return userService.login();
+        return loginService.login();
     }
 }
