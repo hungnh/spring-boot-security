@@ -1,6 +1,6 @@
 # A REST template project with Spring Security &amp; Spring Boot
 
-REST API security with Spring Security
+REST API security with JWT (JSON Web Token) using Spring Security &amp; Spring Boot
 
 
 **Dependencies**
