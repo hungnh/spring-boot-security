@@ -6,73 +6,55 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.util.UrlPathHelper;
-import uet.hungnh.security.constants.SecurityConstant;
+import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
-import javax.security.sasl.AuthenticationException;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Optional;
 
-public class UsernamePasswordAuthenticationFilter extends AbstractAuthenticationFilter {
+import static uet.hungnh.security.constants.SecurityConstant.*;
 
-    private final static Logger logger = LoggerFactory.getLogger(UsernamePasswordAuthenticationFilter.class);
+public class UsernamePasswordAuthenticationFilter extends AbstractAuthenticationProcessingFilter {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(UsernamePasswordAuthenticationFilter.class);
 
     public UsernamePasswordAuthenticationFilter(AuthenticationManager authenticationManager) {
-        super(authenticationManager);
+        super(new AntPathRequestMatcher(LOGIN_ENDPOINT, "POST"));
+        this.setAuthenticationManager(authenticationManager);
     }
 
     @Override
-    public void doFilter(ServletRequest request, ServletResponse response,
-                         FilterChain chain)
+    public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response)
+            throws AuthenticationException, IOException, ServletException {
+
+        Optional<String> username = Optional.ofNullable(request.getHeader(USERNAME_HEADER));
+        Optional<String> password = Optional.ofNullable(request.getHeader(PASSWORD_HEADER));
+
+        if (!username.isPresent() || !password.isPresent()) {
+            throw new InternalAuthenticationServiceException("Unable to authenticate without username or password!");
+        }
+
+        LOGGER.debug("Trying to authenticate user {} by username/password method ", username.get());
+        UsernamePasswordAuthenticationToken authRequest = new UsernamePasswordAuthenticationToken(username.get(), password.get());
+
+        return getAuthenticationManager().authenticate(authRequest);
+    }
+
+    @Override
+    protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response,
+                                            FilterChain chain, Authentication authResult)
             throws IOException, ServletException {
 
-        HttpServletRequest httpRequest = asHttp(request);
-        HttpServletResponse httpResponse = asHttp(response);
-
-        Optional<String> username = Optional.ofNullable(httpRequest.getHeader(SecurityConstant.USERNAME_HEADER));
-        Optional<String> password = Optional.ofNullable(httpRequest.getHeader(SecurityConstant.PASSWORD_HEADER));
-
-        String resourcePath = (new UrlPathHelper()).getPathWithinApplication(httpRequest);
-
-        try {
-            if (postToLogin(httpRequest, resourcePath)) {
-                if (!username.isPresent() || !password.isPresent()) {
-                    throw new InternalAuthenticationServiceException("Unable to authenticate without username or password!");
-                }
-
-                logger.debug("Trying to authenticate user {} by username/password method ", username.get());
-                processUsernamePasswordAuthentication(username.get(), password.get());
-            }
-
-            logger.debug("UsernamePasswordAuthenticationFilter is passing request down the filter chain");
-            chain.doFilter(request, response);
-        } catch (InternalAuthenticationServiceException e) {
-            SecurityContextHolder.clearContext();
-            logger.error("Internal authentication service exception", e);
-            httpResponse.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, e.getMessage());
-        } catch (AuthenticationException e) {
-            SecurityContextHolder.clearContext();
-            httpResponse.sendError(HttpServletResponse.SC_UNAUTHORIZED, e.getMessage());
-        }
-    }
-
-    private void processUsernamePasswordAuthentication(String username, String password) throws IOException {
-        UsernamePasswordAuthenticationToken authRequest = new UsernamePasswordAuthenticationToken(username, password);
-        Authentication authResult = attemptAuthentication(authRequest);
+        LOGGER.debug("Authentication success. Updating SecurityContextHolder to contain: " + authResult);
         SecurityContextHolder.getContext().setAuthentication(authResult);
-    }
 
-    private boolean postToLogin(HttpServletRequest httpRequest, String resourcePath) {
-        return (
-                "POST".equals(httpRequest.getMethod())
-                        && SecurityConstant.LOGIN_ENDPOINT.equals(resourcePath)
-        );
+        LOGGER.debug("UsernamePasswordAuthenticationFilter is passing request down the filter chain");
+        chain.doFilter(request, response);
     }
 }

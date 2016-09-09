@@ -5,7 +5,8 @@ public class SecurityConstant {
     // HEADERS
     public static final String USERNAME_HEADER = "X-Auth-Username";
     public static final String PASSWORD_HEADER = "X-Auth-Password";
-    public static final String TOKEN_HEADER = "X-Auth-Token";
+    public static final String TOKEN_AUTH_HEADER = "X-Auth-Token";
+    public static final String JWT_AUTH_HEADER = "Authorization";
     public static final String FORWARDED_FOR_HEADER = "X-Forwarded-For";
 
     // ROLES
