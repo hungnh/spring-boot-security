@@ -31,7 +31,7 @@ public class RegistrationController {
     public TokenDTO registration(@RequestBody @Valid UserDTO userDTO)
             throws ServletException, EmailExistedException {
         registerService.register(userDTO);
-        request.login(userDTO.getUsername(), userDTO.getPassword());
+        request.login(userDTO.getEmail(), userDTO.getPassword());
         TokenDTO responseToken = loginService.login();
         return responseToken;
     }
