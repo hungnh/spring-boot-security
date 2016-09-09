@@ -12,7 +12,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.authentication.logout.LogoutHandler;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
-import uet.hungnh.security.filter.AuthenticationFilter;
+import uet.hungnh.security.filter.TokenAuthenticationFilter;
+import uet.hungnh.security.filter.UsernamePasswordAuthenticationFilter;
 import uet.hungnh.security.handler.TokenClearingLogoutHandler;
 import uet.hungnh.security.provider.TokenAuthenticationProvider;
 import uet.hungnh.security.service.ITokenService;
@@ -56,7 +57,8 @@ public class TokenBasedSecurityConfig extends AbstractSecurityConfig {
                 .addLogoutHandler(tokenClearingLogoutHandler())
                 .logoutSuccessHandler(logoutSuccessHandler());
 
-        http.addFilterBefore(new AuthenticationFilter(authenticationManager()), BasicAuthenticationFilter.class);
+        http.addFilterBefore(new UsernamePasswordAuthenticationFilter(authenticationManager()), BasicAuthenticationFilter.class);
+        http.addFilterAfter(new TokenAuthenticationFilter(authenticationManager()), UsernamePasswordAuthenticationFilter.class);
     }
 
     @Bean

@@ -1,18 +1,15 @@
 package uet.hungnh.config;
 
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
-import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.web.authentication.logout.LogoutHandler;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
-import uet.hungnh.security.filter.AuthenticationFilter;
+import uet.hungnh.security.filter.UsernamePasswordAuthenticationFilter;
 
 import static uet.hungnh.security.constants.SecurityConstant.LOGOUT_ENDPOINT;
 
@@ -51,6 +48,6 @@ public class JwtSecurityConfig extends AbstractSecurityConfig {
                 .logoutUrl(LOGOUT_ENDPOINT)
                 .logoutSuccessHandler(logoutSuccessHandler());
 
-        http.addFilterBefore(new AuthenticationFilter(authenticationManager()), BasicAuthenticationFilter.class);
+        http.addFilterBefore(new UsernamePasswordAuthenticationFilter(authenticationManager()), BasicAuthenticationFilter.class);
     }
 }
