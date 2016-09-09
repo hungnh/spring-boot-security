@@ -3,20 +3,20 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>security</artifactId>
+        <artifactId>security-provider</artifactId>
         <groupId>uet.hungnh</groupId>
         <version>1.0.0</version>
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>security-provider</artifactId>
-    <packaging>pom</packaging>
+    <artifactId>jwt-security-provider</artifactId>
 
-    <modules>
-        <module>common-security-provider</module>
-        <module>token-security-provider</module>
-        <module>jwt-security-provider</module>
-    </modules>
-
+    <dependencies>
+        <dependency>
+            <groupId>uet.hungnh</groupId>
+            <artifactId>common-security-provider</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+    </dependencies>
 
 </project>
