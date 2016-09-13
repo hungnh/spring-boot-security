@@ -34,7 +34,7 @@ import static uet.hungnh.security.constants.SecurityConstant.LOGOUT_ENDPOINT;
 @PropertySource("classpath:/security.properties")
 public class JwtSecurityConfig extends AbstractSecurityConfig {
 
-    @Value("${jwt.signature.secret}")
+    @Value("${jwt.secret-key}")
     private String jwtSecretKey;
 
     @Override

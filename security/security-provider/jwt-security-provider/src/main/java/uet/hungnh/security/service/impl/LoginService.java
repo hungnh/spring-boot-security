@@ -25,11 +25,14 @@ import java.util.Date;
 @Transactional(rollbackFor = Exception.class)
 public class LoginService implements ILoginService {
 
-    @Value("${jwt.claim.issuer}")
+    @Value("${jwt.issuer}")
     private String jwtIssuer;
 
-    @Value("${jwt.claim.expired-duration-in-hours}")
+    @Value("${jwt.expired-duration-in-hours}")
     private Integer expiredDurationInHours;
+
+    @Value("${jwt.hashing-algorithm}")
+    private String hashingAlgorithm;
 
     @Autowired
     private ISecurityContextFacade securityContext;
@@ -54,7 +57,7 @@ public class LoginService implements ILoginService {
                     .claim("roles", AuthorityUtils.authorityListToSet(user.getAuthorities()))
                     .build();
 
-            JWSHeader jwsHeader = new JWSHeader(JWSAlgorithm.HS256);
+            JWSHeader jwsHeader = new JWSHeader(JWSAlgorithm.parse(hashingAlgorithm));
             SignedJWT signedJWT = new SignedJWT(jwsHeader, claims);
 
             signedJWT.sign(jwsSigner);

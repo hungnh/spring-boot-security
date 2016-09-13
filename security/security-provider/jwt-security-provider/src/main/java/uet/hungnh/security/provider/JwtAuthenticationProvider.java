@@ -15,7 +15,7 @@ import java.util.Date;
 
 public class JwtAuthenticationProvider implements AuthenticationProvider {
 
-    @Value("${jwt.claim.issuer}")
+    @Value("${jwt.issuer}")
     private String jwtIssuer;
 
     private JWSVerifier jwsVerifier;
