@@ -6,6 +6,7 @@ import com.nimbusds.jose.JWSVerifier;
 import com.nimbusds.jose.KeyLengthException;
 import com.nimbusds.jose.crypto.MACSigner;
 import com.nimbusds.jose.crypto.MACVerifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -32,6 +33,9 @@ import static uet.hungnh.security.constants.SecurityConstant.LOGOUT_ENDPOINT;
 )
 @PropertySource("classpath:/security.properties")
 public class JwtSecurityConfig extends AbstractSecurityConfig {
+
+    @Value("${jwt.signature.secret}")
+    private String jwtSecretKey;
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -69,11 +73,11 @@ public class JwtSecurityConfig extends AbstractSecurityConfig {
 
     @Bean
     public JWSSigner jwsSigner() throws KeyLengthException {
-        return new MACSigner("fU$t%mt@S&5JshnhSVBCZ+vXyx_WjB-L");
+        return new MACSigner(jwtSecretKey);
     }
 
     @Bean
     public JWSVerifier jwsVerifier() throws JOSEException {
-        return new MACVerifier("fU$t%mt@S&5JshnhSVBCZ+vXyx_WjB-L");
+        return new MACVerifier(jwtSecretKey);
     }
 }

@@ -3,6 +3,7 @@ package uet.hungnh.security.provider;
 import com.nimbusds.jose.JOSEException;
 import com.nimbusds.jose.JWSVerifier;
 import com.nimbusds.jwt.*;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.Authentication;
@@ -13,6 +14,9 @@ import java.time.Instant;
 import java.util.Date;
 
 public class JwtAuthenticationProvider implements AuthenticationProvider {
+
+    @Value("${jwt.claim.issuer}")
+    private String jwtIssuer;
 
     private JWSVerifier jwsVerifier;
 
@@ -44,9 +48,8 @@ public class JwtAuthenticationProvider implements AuthenticationProvider {
             throw new BadCredentialsException("Token is expired");
         }
 
-        String issuerRef = "hungnh.uet";
         String issuer = claims.getIssuer();
-        if (issuer == null || !issuer.equals(issuerRef)) {
+        if (issuer == null || !issuer.equals(jwtIssuer)) {
             throw new BadCredentialsException("Token's issuer is invalid");
         }
 
