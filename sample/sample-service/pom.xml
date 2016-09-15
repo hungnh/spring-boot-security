@@ -31,7 +31,7 @@
         <!-- tag :: security -->
         <dependency>
             <groupId>uet.hungnh</groupId>
-            <artifactId>security-auto-config</artifactId>
+            <artifactId>jwt-security-provider</artifactId>
             <version>1.0.0</version>
         </dependency>
         <!-- end :: security -->
