@@ -2,6 +2,7 @@ package uet.hungnh.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.core.env.Environment;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -16,6 +17,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import uet.hungnh.security.handler.CustomLogoutSuccessHandler;
 
 import javax.servlet.http.HttpServletResponse;
+import java.io.File;
 
 import static uet.hungnh.security.constants.SecurityConstant.*;
 
@@ -23,12 +25,20 @@ public abstract class AbstractSecurityConfig extends WebSecurityConfigurerAdapte
 
     @Autowired
     private UserDetailsService userDetailsService;
+    @Autowired
+    private Environment environment;
 
-    protected String[] publicAPIs() {
+    protected String[] publicEndpoints() {
         return new String[]{
                 REGISTRATION_ENDPOINT, LOGIN_ENDPOINT,
                 LOGOUT_ENDPOINT, EMAIL_CONFIRMATION_ENDPOINT,
                 REQUEST_RESET_PASSWORD_ENDPOINT, RESET_PASSWORD_ENDPOINT
+        };
+    }
+
+    protected String[] managementEndpoints() {
+        return new String[]{
+                environment.getProperty("management.context-path") + File.separator + "**"
         };
     }
 

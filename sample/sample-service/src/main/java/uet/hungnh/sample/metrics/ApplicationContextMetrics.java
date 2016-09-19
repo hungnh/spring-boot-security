@@ -4,6 +4,7 @@ import org.springframework.boot.actuate.endpoint.PublicMetrics;
 import org.springframework.boot.actuate.metrics.Metric;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -27,7 +28,8 @@ public class ApplicationContextMetrics implements PublicMetrics {
         Metric<Integer> beanCounts = new Metric<>("spring.beans.definitions", applicationContext.getBeanDefinitionCount());
         metrics.add(beanCounts);
 
-        Metric<Integer> controllerCounts = new Metric<Integer>("spring.controllers", app)
+        Metric<Integer> controllerCounts = new Metric<Integer>("spring.controllers", applicationContext.getBeanNamesForAnnotation(Controller.class).length);
+        metrics.add(controllerCounts);
 
         return metrics;
     }
