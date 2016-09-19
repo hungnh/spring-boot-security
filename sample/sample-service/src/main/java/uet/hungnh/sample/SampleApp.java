@@ -6,6 +6,10 @@ import org.springframework.boot.autoconfigure.data.rest.RepositoryRestMvcAutoCon
 import org.springframework.boot.autoconfigure.security.SecurityAutoConfiguration;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import uet.hungnh.AbstractApplication;
+
+import java.util.Date;
+import java.util.TimeZone;
 
 @Configuration
 @EnableAutoConfiguration(
@@ -15,7 +19,7 @@ import org.springframework.context.annotation.Configuration;
         }
 )
 @ComponentScan(basePackages = "uet.hungnh")
-public class SampleApp {
+public class SampleApp extends AbstractApplication {
     public static void main(String[] args) {
         SpringApplication.run(SampleApp.class, args);
     }
