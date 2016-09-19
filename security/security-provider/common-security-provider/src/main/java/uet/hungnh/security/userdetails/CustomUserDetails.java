@@ -7,6 +7,7 @@ import uet.hungnh.security.model.entity.User;
 
 import java.util.Collection;
 
+import static uet.hungnh.security.constants.SecurityConstant.ROLE_ADMIN;
 import static uet.hungnh.security.constants.SecurityConstant.ROLE_USER;
 
 public class CustomUserDetails extends User implements UserDetails {
@@ -27,7 +28,7 @@ public class CustomUserDetails extends User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return AuthorityUtils.commaSeparatedStringToAuthorityList(ROLE_USER);
+        return AuthorityUtils.createAuthorityList(ROLE_USER, ROLE_ADMIN);
     }
 
     @Override
