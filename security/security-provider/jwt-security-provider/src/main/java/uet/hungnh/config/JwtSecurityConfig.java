@@ -54,7 +54,6 @@ public class JwtSecurityConfig extends AbstractSecurityConfig {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
-                .antMatchers(managementEndpoints()).hasRole("ADMIN")
                 .antMatchers(publicEndpoints()).permitAll()
                 .and()
                 .exceptionHandling().authenticationEntryPoint(unauthorizedEntryPoint())

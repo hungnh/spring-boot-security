@@ -1,53 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xmlns="http://maven.apache.org/POM/4.0.0"
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
     <parent>
-        <artifactId>sample</artifactId>
+        <artifactId>parent</artifactId>
         <groupId>uet.hungnh</groupId>
         <version>1.0.0</version>
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>sample-service</artifactId>
+    <artifactId>spring-boot-admin-server</artifactId>
+    <packaging>jar</packaging>
+    <name>spring-boot-admin-server</name>
+    <description>Spring Boot Admin Server</description>
 
     <dependencies>
-        <!-- tag :: model-->
-        <dependency>
-            <groupId>uet.hungnh</groupId>
-            <artifactId>sample-model</artifactId>
-            <version>1.0.0</version>
-        </dependency>
-        <!-- end :: model-->
-
-        <!-- tag :: common -->
-        <dependency>
-            <groupId>uet.hungnh</groupId>
-            <artifactId>common-service</artifactId>
-            <version>1.0.0</version>
-        </dependency>
-        <!-- end :: common -->
-
-        <!-- tag :: security -->
-        <dependency>
-            <groupId>uet.hungnh</groupId>
-            <artifactId>jwt-security-provider</artifactId>
-            <version>1.0.0</version>
-        </dependency>
-        <!-- end :: security -->
-
         <!-- tag :: actuator -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-remote-shell</artifactId>
+            <groupId>de.codecentric</groupId>
+            <artifactId>spring-boot-admin-server</artifactId>
+            <version>${spring-boot-admin.version}</version>
         </dependency>
         <dependency>
             <groupId>de.codecentric</groupId>
-            <artifactId>spring-boot-admin-starter-client</artifactId>
+            <artifactId>spring-boot-admin-server-ui</artifactId>
             <version>${spring-boot-admin.version}</version>
         </dependency>
         <!-- end :: actuator -->
@@ -58,7 +38,7 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
-        <!-- end :: test -->
+        <!-- end :: actuator -->
     </dependencies>
 
     <build>
@@ -69,4 +49,6 @@
             </plugin>
         </plugins>
     </build>
+
+
 </project>
