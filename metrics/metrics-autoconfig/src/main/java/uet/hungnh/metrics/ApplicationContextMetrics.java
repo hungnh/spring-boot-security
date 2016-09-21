@@ -1,4 +1,4 @@
-package uet.hungnh.sample.metrics;
+package uet.hungnh.metrics;
 
 import org.springframework.boot.actuate.endpoint.PublicMetrics;
 import org.springframework.boot.actuate.metrics.Metric;
@@ -22,13 +22,13 @@ public class ApplicationContextMetrics implements PublicMetrics {
     public Collection<Metric<?>> metrics() {
         Collection<Metric<?>> metrics = new ArrayList<>();
 
-        Metric<Long> appStartupDate = new Metric<>("spring.context.startup-date", applicationContext.getStartupDate());
+        Metric<Long> appStartupDate = new Metric<>("gauge.spring.context.startup-date", applicationContext.getStartupDate());
         metrics.add(appStartupDate);
 
-        Metric<Integer> beanCounts = new Metric<>("spring.beans.definitions", applicationContext.getBeanDefinitionCount());
+        Metric<Integer> beanCounts = new Metric<>("counter.spring.beans.definitions", applicationContext.getBeanDefinitionCount());
         metrics.add(beanCounts);
 
-        Metric<Integer> controllerCounts = new Metric<Integer>("spring.controllers", applicationContext.getBeanNamesForAnnotation(Controller.class).length);
+        Metric<Integer> controllerCounts = new Metric<Integer>("counter.spring.controllers", applicationContext.getBeanNamesForAnnotation(Controller.class).length);
         metrics.add(controllerCounts);
 
         return metrics;

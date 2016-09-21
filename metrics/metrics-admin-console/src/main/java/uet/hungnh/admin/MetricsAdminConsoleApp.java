@@ -6,9 +6,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 @EnableAdminServer
-public class SpringBootAdminServerApplication {
+public class MetricsAdminConsoleApp {
 
     public static void main(String[] args) {
-        SpringApplication.run(SpringBootAdminServerApplication.class, args);
+        SpringApplication.run(MetricsAdminConsoleApp.class, args);
     }
 }

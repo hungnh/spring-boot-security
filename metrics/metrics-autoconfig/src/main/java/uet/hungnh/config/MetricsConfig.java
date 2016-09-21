@@ -1,5 +1,6 @@
 package uet.hungnh.config;
 
+
 import com.codahale.metrics.MetricFilter;
 import com.codahale.metrics.MetricRegistry;
 import com.codahale.metrics.graphite.Graphite;
@@ -8,11 +9,15 @@ import com.codahale.metrics.jvm.MemoryUsageGaugeSet;
 import com.codahale.metrics.jvm.ThreadStatesGaugeSet;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 
 import java.util.concurrent.TimeUnit;
 
 @Configuration
+@ComponentScan(basePackages = "uet.hungnh.metrics")
+@PropertySource(value = {"classpath:/metrics.properties"})
 public class MetricsConfig {
 
     @Bean
@@ -26,7 +31,7 @@ public class MetricsConfig {
     @Bean
     public GraphiteReporter graphiteReporter(Graphite graphite, MetricRegistry registry) {
         GraphiteReporter reporter = GraphiteReporter.forRegistry(registry)
-                .prefixedWith("uet.hungnh")
+                .prefixedWith("metrics.uet.hungnh")
                 .convertRatesTo(TimeUnit.MILLISECONDS)
                 .convertDurationsTo(TimeUnit.MILLISECONDS)
                 .filter(MetricFilter.ALL)
