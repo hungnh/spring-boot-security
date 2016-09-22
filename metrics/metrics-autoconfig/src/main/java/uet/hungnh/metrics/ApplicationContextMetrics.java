@@ -22,9 +22,6 @@ public class ApplicationContextMetrics implements PublicMetrics {
     public Collection<Metric<?>> metrics() {
         Collection<Metric<?>> metrics = new ArrayList<>();
 
-        Metric<Long> appStartupDate = new Metric<>("gauge.spring.context.startup-date", applicationContext.getStartupDate());
-        metrics.add(appStartupDate);
-
         Metric<Integer> beanCounts = new Metric<>("counter.spring.beans.definitions", applicationContext.getBeanDefinitionCount());
         metrics.add(beanCounts);
 

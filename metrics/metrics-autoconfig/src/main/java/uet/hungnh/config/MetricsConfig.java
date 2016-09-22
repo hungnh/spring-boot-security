@@ -1,10 +1,13 @@
 package uet.hungnh.config;
 
 
+import com.codahale.metrics.JvmAttributeGaugeSet;
 import com.codahale.metrics.MetricFilter;
 import com.codahale.metrics.MetricRegistry;
 import com.codahale.metrics.graphite.Graphite;
 import com.codahale.metrics.graphite.GraphiteReporter;
+import com.codahale.metrics.jvm.ClassLoadingGaugeSet;
+import com.codahale.metrics.jvm.GarbageCollectorMetricSet;
 import com.codahale.metrics.jvm.MemoryUsageGaugeSet;
 import com.codahale.metrics.jvm.ThreadStatesGaugeSet;
 import org.springframework.beans.factory.annotation.Value;
@@ -31,7 +34,7 @@ public class MetricsConfig {
     @Bean
     public GraphiteReporter graphiteReporter(Graphite graphite, MetricRegistry registry) {
         GraphiteReporter reporter = GraphiteReporter.forRegistry(registry)
-                .prefixedWith("metrics.uet.hungnh")
+                .prefixedWith("metrics")
                 .convertRatesTo(TimeUnit.MILLISECONDS)
                 .convertDurationsTo(TimeUnit.MILLISECONDS)
                 .filter(MetricFilter.ALL)
@@ -47,6 +50,27 @@ public class MetricsConfig {
         MemoryUsageGaugeSet memoryUsageGaugeSet = new MemoryUsageGaugeSet();
         registry.register("sample-app.memory", memoryUsageGaugeSet);
         return memoryUsageGaugeSet;
+    }
+
+    @Bean
+    public ClassLoadingGaugeSet classLoadingGaugeSet(MetricRegistry registry) {
+        ClassLoadingGaugeSet classLoadingGaugeSet = new ClassLoadingGaugeSet();
+        registry.register("sample-app.class", classLoadingGaugeSet);
+        return classLoadingGaugeSet;
+    }
+
+    @Bean
+    public JvmAttributeGaugeSet jvmAttributeGaugeSet(MetricRegistry registry) {
+        JvmAttributeGaugeSet jvmAttributeGaugeSet = new JvmAttributeGaugeSet();
+        registry.register("sample-app.jvm", jvmAttributeGaugeSet);
+        return jvmAttributeGaugeSet;
+    }
+
+    @Bean
+    public GarbageCollectorMetricSet garbageCollectorMetricSet(MetricRegistry registry) {
+        GarbageCollectorMetricSet garbageCollectorMetricSet = new GarbageCollectorMetricSet();
+        registry.register("sample-app.gc", garbageCollectorMetricSet);
+        return garbageCollectorMetricSet;
     }
 
     @Bean
