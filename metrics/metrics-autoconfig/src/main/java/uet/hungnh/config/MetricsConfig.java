@@ -1,6 +1,7 @@
 package uet.hungnh.config;
 
 
+import com.codahale.metrics.Histogram;
 import com.codahale.metrics.JvmAttributeGaugeSet;
 import com.codahale.metrics.MetricFilter;
 import com.codahale.metrics.MetricRegistry;
@@ -10,18 +11,76 @@ import com.codahale.metrics.jvm.ClassLoadingGaugeSet;
 import com.codahale.metrics.jvm.GarbageCollectorMetricSet;
 import com.codahale.metrics.jvm.MemoryUsageGaugeSet;
 import com.codahale.metrics.jvm.ThreadStatesGaugeSet;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import uet.hungnh.metrics.ResponseTimeInterceptor;
 
 import java.util.concurrent.TimeUnit;
 
 @Configuration
 @ComponentScan(basePackages = "uet.hungnh.metrics")
 @PropertySource(value = {"classpath:/metrics.properties"})
-public class MetricsConfig {
+public class MetricsConfig extends WebMvcConfigurerAdapter {
+
+    @Autowired
+    private MetricRegistry metricRegistry;
+
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        super.addInterceptors(registry);
+        registry.addInterceptor(responseTimeInterceptor());
+    }
+
+    @Bean
+    public ResponseTimeInterceptor responseTimeInterceptor() {
+        return new ResponseTimeInterceptor(responseSizeHistogram());
+    }
+
+    @Bean(name = "responseSizeHistogram")
+    public Histogram responseSizeHistogram() {
+        return metricRegistry.histogram("sample-app.response-size");
+    }
+
+    @Bean
+    public MemoryUsageGaugeSet memoryUsageGaugeSet() {
+        MemoryUsageGaugeSet memoryUsageGaugeSet = new MemoryUsageGaugeSet();
+        metricRegistry.register("sample-app.memory", memoryUsageGaugeSet);
+        return memoryUsageGaugeSet;
+    }
+
+    @Bean
+    public ClassLoadingGaugeSet classLoadingGaugeSet() {
+        ClassLoadingGaugeSet classLoadingGaugeSet = new ClassLoadingGaugeSet();
+        metricRegistry.register("sample-app.class", classLoadingGaugeSet);
+        return classLoadingGaugeSet;
+    }
+
+    @Bean
+    public JvmAttributeGaugeSet jvmAttributeGaugeSet() {
+        JvmAttributeGaugeSet jvmAttributeGaugeSet = new JvmAttributeGaugeSet();
+        metricRegistry.register("sample-app.jvm", jvmAttributeGaugeSet);
+        return jvmAttributeGaugeSet;
+    }
+
+    @Bean
+    public GarbageCollectorMetricSet garbageCollectorMetricSet() {
+        GarbageCollectorMetricSet garbageCollectorMetricSet = new GarbageCollectorMetricSet();
+        metricRegistry.register("sample-app.gc", garbageCollectorMetricSet);
+        return garbageCollectorMetricSet;
+    }
+
+    @Bean
+    public ThreadStatesGaugeSet threadStatesGaugeSet() {
+        ThreadStatesGaugeSet threadStatesGaugeSet = new ThreadStatesGaugeSet();
+        metricRegistry.register("sample-app.thread-state", threadStatesGaugeSet);
+        return threadStatesGaugeSet;
+    }
 
     @Bean
     public Graphite graphite(
@@ -32,8 +91,8 @@ public class MetricsConfig {
     }
 
     @Bean
-    public GraphiteReporter graphiteReporter(Graphite graphite, MetricRegistry registry) {
-        GraphiteReporter reporter = GraphiteReporter.forRegistry(registry)
+    public GraphiteReporter graphiteReporter(Graphite graphite) {
+        GraphiteReporter reporter = GraphiteReporter.forRegistry(metricRegistry)
                 .prefixedWith("metrics")
                 .convertRatesTo(TimeUnit.MILLISECONDS)
                 .convertDurationsTo(TimeUnit.MILLISECONDS)
@@ -43,40 +102,5 @@ public class MetricsConfig {
         reporter.start(5, TimeUnit.SECONDS);
 
         return reporter;
-    }
-
-    @Bean
-    public MemoryUsageGaugeSet memoryUsageGaugeSet(MetricRegistry registry) {
-        MemoryUsageGaugeSet memoryUsageGaugeSet = new MemoryUsageGaugeSet();
-        registry.register("sample-app.memory", memoryUsageGaugeSet);
-        return memoryUsageGaugeSet;
-    }
-
-    @Bean
-    public ClassLoadingGaugeSet classLoadingGaugeSet(MetricRegistry registry) {
-        ClassLoadingGaugeSet classLoadingGaugeSet = new ClassLoadingGaugeSet();
-        registry.register("sample-app.class", classLoadingGaugeSet);
-        return classLoadingGaugeSet;
-    }
-
-    @Bean
-    public JvmAttributeGaugeSet jvmAttributeGaugeSet(MetricRegistry registry) {
-        JvmAttributeGaugeSet jvmAttributeGaugeSet = new JvmAttributeGaugeSet();
-        registry.register("sample-app.jvm", jvmAttributeGaugeSet);
-        return jvmAttributeGaugeSet;
-    }
-
-    @Bean
-    public GarbageCollectorMetricSet garbageCollectorMetricSet(MetricRegistry registry) {
-        GarbageCollectorMetricSet garbageCollectorMetricSet = new GarbageCollectorMetricSet();
-        registry.register("sample-app.gc", garbageCollectorMetricSet);
-        return garbageCollectorMetricSet;
-    }
-
-    @Bean
-    public ThreadStatesGaugeSet threadStatesGaugeSet(MetricRegistry registry) {
-        ThreadStatesGaugeSet threadStatesGaugeSet = new ThreadStatesGaugeSet();
-        registry.register("sample-app.thread-state", threadStatesGaugeSet);
-        return threadStatesGaugeSet;
     }
 }
