@@ -20,19 +20,6 @@
         </dependency>
         <!-- end :: actuator -->
 
-        <!-- connect to Spring Boot App via Remote Shell-->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-remote-shell</artifactId>
-        </dependency>
-
-        <!-- monitor Spring Boot App using Spring Boot Admin -->
-        <dependency>
-            <groupId>de.codecentric</groupId>
-            <artifactId>spring-boot-admin-starter-client</artifactId>
-            <version>${spring-boot-admin.version}</version>
-        </dependency>
-
         <!-- tag :: Dropwizard Metrics -->
         <dependency>
             <groupId>io.dropwizard.metrics</groupId>
@@ -53,6 +40,22 @@
             <version>${dropwizard-metrics.version}</version>
         </dependency>
         <!-- end :: Dropwizard Metrics -->
+
+        <!-- connect to Spring Boot App via Remote Shell-->
+        <!-- Optional -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-remote-shell</artifactId>
+        </dependency>
+
+        <!-- monitor Spring Boot App using Spring Boot Admin -->
+        <!-- Optional -->
+        <dependency>
+            <groupId>de.codecentric</groupId>
+            <artifactId>spring-boot-admin-starter-client</artifactId>
+            <version>${spring-boot-admin.version}</version>
+        </dependency>
+
     </dependencies>
 
 </project>

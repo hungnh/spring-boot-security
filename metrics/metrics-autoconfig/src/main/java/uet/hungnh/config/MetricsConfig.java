@@ -1,10 +1,7 @@
 package uet.hungnh.config;
 
 
-import com.codahale.metrics.Histogram;
-import com.codahale.metrics.JvmAttributeGaugeSet;
-import com.codahale.metrics.MetricFilter;
-import com.codahale.metrics.MetricRegistry;
+import com.codahale.metrics.*;
 import com.codahale.metrics.graphite.Graphite;
 import com.codahale.metrics.graphite.GraphiteReporter;
 import com.codahale.metrics.jvm.ClassLoadingGaugeSet;
@@ -39,12 +36,12 @@ public class MetricsConfig extends WebMvcConfigurerAdapter {
 
     @Bean
     public ResponseTimeInterceptor responseTimeInterceptor() {
-        return new ResponseTimeInterceptor(responseSizeHistogram());
+        return new ResponseTimeInterceptor(responseTimer());
     }
 
-    @Bean(name = "responseSizeHistogram")
-    public Histogram responseSizeHistogram() {
-        return metricRegistry.histogram("sample-app.response-size");
+    @Bean(name = "responseTimer")
+    public Timer responseTimer() {
+        return metricRegistry.timer("sample-app.response-time");
     }
 
     @Bean

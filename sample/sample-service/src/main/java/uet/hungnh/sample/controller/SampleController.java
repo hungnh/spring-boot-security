@@ -1,5 +1,7 @@
 package uet.hungnh.sample.controller;
 
+import org.apache.commons.lang.math.RandomUtils;
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.actuate.metrics.CounterService;
 import org.springframework.boot.actuate.metrics.GaugeService;
@@ -8,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import uet.hungnh.sample.dto.SampleDTO;
 import uet.hungnh.sample.service.ISampleService;
 
+import java.util.Random;
 import java.util.UUID;
 
 import static uet.hungnh.security.constants.SecurityConstant.ROLE_USER;
@@ -17,7 +20,7 @@ import static uet.hungnh.security.constants.SecurityConstant.ROLE_USER;
 @Secured({ROLE_USER})
 public class SampleController {
 
-    @Autowired
+    private static final Logger LOGGER = org.slf4j.LoggerFactory.getLogger(SampleController.class);
     private ISampleService sampleService;
 
     @Autowired
@@ -26,9 +29,16 @@ public class SampleController {
     private GaugeService gaugeService;
 
     @GetMapping
-    public String sample() {
+    public String sample() throws InterruptedException {
         counterService.increment("sample.read");
         gaugeService.submit("sample.last.accessed", System.currentTimeMillis());
+        Thread.sleep(RandomUtils.nextInt(1000));
+
+        LOGGER.debug("This is DEBUG logs!");
+        LOGGER.info("This is INFO logs!");
+        LOGGER.warn("This is WARN logs!");
+        LOGGER.error("This is ERROR logs!");
+
         return "Sample OK!";
     }
 
