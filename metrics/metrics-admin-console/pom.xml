@@ -12,7 +12,6 @@
     <artifactId>metrics-admin-console</artifactId>
 
     <dependencies>
-        <!-- tag :: actuator -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
@@ -27,15 +26,6 @@
             <artifactId>spring-boot-admin-server-ui</artifactId>
             <version>${spring-boot-admin.version}</version>
         </dependency>
-        <!-- end :: actuator -->
-
-        <!-- tag :: test -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <!-- end :: actuator -->
     </dependencies>
 
     <build>
