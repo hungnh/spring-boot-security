@@ -2,6 +2,7 @@ package uet.hungnh.sample.controller;
 
 import org.apache.commons.lang.math.RandomUtils;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.actuate.metrics.CounterService;
 import org.springframework.boot.actuate.metrics.GaugeService;
@@ -20,25 +21,14 @@ import static uet.hungnh.security.constants.SecurityConstant.ROLE_USER;
 @Secured({ROLE_USER})
 public class SampleController {
 
-    private static final Logger LOGGER = org.slf4j.LoggerFactory.getLogger(SampleController.class);
-    private ISampleService sampleService;
+    private static final Logger LOGGER = LoggerFactory.getLogger(SampleController.class);
 
     @Autowired
-    private CounterService counterService;
-    @Autowired
-    private GaugeService gaugeService;
+    private ISampleService sampleService;
 
     @GetMapping
     public String sample() throws InterruptedException {
-        counterService.increment("sample.read");
-        gaugeService.submit("sample.last.accessed", System.currentTimeMillis());
-        Thread.sleep(RandomUtils.nextInt(1000));
-
-        LOGGER.debug("This is DEBUG logs!");
-        LOGGER.info("This is INFO logs!");
-        LOGGER.warn("This is WARN logs!");
-        LOGGER.error("This is ERROR logs!");
-
+        Thread.sleep(RandomUtils.nextInt(700));
         return "Sample OK!";
     }
 
