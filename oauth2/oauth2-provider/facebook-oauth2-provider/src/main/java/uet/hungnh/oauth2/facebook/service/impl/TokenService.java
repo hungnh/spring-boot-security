@@ -69,6 +69,7 @@ public class TokenService implements ITokenService {
         Map<String, String> params = new HashMap<>();
         params.put("fields", "id,name,email,link,picture{url}");
         params.put("access_token", longLivedToken.getAccessToken());
+
         return restTemplate.getForObject(
                 OAuth2Constant.FB_USER_PROFILE_URL_TEMPLATE,
                 FacebookUser.class,
