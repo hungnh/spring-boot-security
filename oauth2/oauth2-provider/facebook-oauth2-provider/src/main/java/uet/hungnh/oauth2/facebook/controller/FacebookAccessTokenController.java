@@ -17,7 +17,7 @@ public class FacebookAccessTokenController {
     private IAccessTokenService tokenService;
 
     @PostMapping("/validate")
-    public AccessTokenValidationResultDTO exchangeAccessToken(@RequestBody AccessTokenDTO accessToken) {
+    public AccessTokenValidationResultDTO validateAccessToken(@RequestBody AccessTokenDTO accessToken) {
         return tokenService.validateAccessToken(accessToken); //TODO: frontend service request
     }
 }
