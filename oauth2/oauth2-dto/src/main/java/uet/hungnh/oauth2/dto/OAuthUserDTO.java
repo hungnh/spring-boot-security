@@ -4,9 +4,11 @@ import uet.hungnh.oauth2.enums.OAuthProvider;
 
 public class OAuthUserDTO {
     private String providerUserId;
+    private OAuthProvider provider;
     private String name;
     private String email;
-    private OAuthProvider provider;
+    private String profileUrl;
+    private String avatarUrl;
 
     public String getProviderUserId() {
         return providerUserId;
@@ -38,5 +40,21 @@ public class OAuthUserDTO {
 
     public void setProvider(OAuthProvider provider) {
         this.provider = provider;
+    }
+
+    public String getProfileUrl() {
+        return profileUrl;
+    }
+
+    public void setProfileUrl(String profileUrl) {
+        this.profileUrl = profileUrl;
+    }
+
+    public String getAvatarUrl() {
+        return avatarUrl;
+    }
+
+    public void setAvatarUrl(String avatarUrl) {
+        this.avatarUrl = avatarUrl;
     }
 }

@@ -59,10 +59,10 @@ public class TokenService implements ITokenService {
         accessToken.setUser(oAuthUser);
         oAuthAccessTokenRepository.save(accessToken);
 
-        OAuthAccessTokenDTO responseAccessToken = new OAuthAccessTokenDTO();
-        responseAccessToken.setToken(longLivedToken.getAccessToken());
-        responseAccessToken.setUser(mapper.map(oAuthUser, OAuthUserDTO.class));
-        return responseAccessToken;
+        OAuthAccessTokenDTO responseToken = new OAuthAccessTokenDTO();
+        responseToken.setToken(longLivedToken.getAccessToken());
+        responseToken.setUser(mapper.map(oAuthUser, OAuthUserDTO.class));
+        return responseToken;
     }
 
     private FacebookUser fetchUserProfile(FacebookAccessToken longLivedToken) {
