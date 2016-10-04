@@ -28,13 +28,21 @@
         </dependency>
         <!-- end :: common -->
 
-        <!-- tag :: security -->
+        <!--&lt;!&ndash; tag :: security &ndash;&gt;-->
+        <!--<dependency>-->
+            <!--<groupId>uet.hungnh</groupId>-->
+            <!--<artifactId>jwt-security-provider</artifactId>-->
+            <!--<version>1.0.0</version>-->
+        <!--</dependency>-->
+        <!--&lt;!&ndash; end :: security &ndash;&gt;-->
+
+        <!-- tag :: oauth2 -->
         <dependency>
             <groupId>uet.hungnh</groupId>
-            <artifactId>jwt-security-provider</artifactId>
+            <artifactId>facebook-oauth2-provider</artifactId>
             <version>1.0.0</version>
         </dependency>
-        <!-- end :: security -->
+        <!-- end :: oauth2 -->
 
         <!-- tag :: test -->
         <dependency>

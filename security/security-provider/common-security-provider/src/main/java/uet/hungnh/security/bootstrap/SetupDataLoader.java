@@ -1,4 +1,4 @@
-package uet.hungnh.sample.bootstrap;
+package uet.hungnh.security.bootstrap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;

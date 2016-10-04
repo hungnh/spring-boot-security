@@ -10,4 +10,29 @@
 
     <modelVersion>4.0.0</modelVersion>
     <artifactId>oauth2-model</artifactId>
+
+    <dependencies>
+        <!-- tag :: DTO -->
+        <dependency>
+            <groupId>uet.hungnh</groupId>
+            <artifactId>oauth2-dto</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+        <!-- end :: DTO -->
+
+        <!-- tag :: common -->
+        <dependency>
+            <groupId>uet.hungnh</groupId>
+            <artifactId>common-model</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+        <!-- end :: common -->
+
+        <!-- tag :: PostgreSQL-->
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+        </dependency>
+        <!-- end :: PostgreSQL-->
+    </dependencies>
 </project>
