@@ -1,13 +1,13 @@
-package uet.hungnh.oauth2.dto;
+package uet.hungnh.oauth2.facebook.api;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class FacebookAccessTokenDTO {
+public class FacebookAccessToken {
     @JsonProperty(value = "access_token")
     private String accessToken;
 
     @JsonProperty(value = "expires_in")
-    private Long expiresIn; // The number of seconds until this access token expires.
+    private int expiresIn; // The number of seconds until this access token expires.
 
     @JsonProperty(value = "token_type")
     private String tokenType;
@@ -20,11 +20,11 @@ public class FacebookAccessTokenDTO {
         this.accessToken = accessToken;
     }
 
-    public Long getExpiresIn() {
+    public int getExpiresIn() {
         return expiresIn;
     }
 
-    public void setExpiresIn(Long expiresIn) {
+    public void setExpiresIn(int expiresIn) {
         this.expiresIn = expiresIn;
     }
 

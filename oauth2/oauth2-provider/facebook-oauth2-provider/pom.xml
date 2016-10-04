@@ -22,5 +22,10 @@
             <artifactId>oauth2-dto</artifactId>
             <version>1.0.0</version>
         </dependency>
+        <dependency>
+            <groupId>uet.hungnh</groupId>
+            <artifactId>oauth2-model</artifactId>
+            <version>1.0.0</version>
+        </dependency>
     </dependencies>
 </project>

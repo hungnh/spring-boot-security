@@ -8,9 +8,6 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import uet.hungnh.AbstractApplication;
 
-import java.util.Date;
-import java.util.TimeZone;
-
 @Configuration
 @EnableAutoConfiguration(
         exclude = {

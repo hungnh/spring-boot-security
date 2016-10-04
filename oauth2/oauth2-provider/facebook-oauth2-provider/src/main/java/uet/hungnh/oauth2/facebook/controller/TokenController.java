@@ -1,12 +1,12 @@
-package uet.hungnh.oauth2.controller;
+package uet.hungnh.oauth2.facebook.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import uet.hungnh.oauth2.dto.AccessTokenDTO;
-import uet.hungnh.oauth2.service.ITokenService;
+import uet.hungnh.oauth2.dto.OAuthAccessTokenDTO;
+import uet.hungnh.oauth2.facebook.service.ITokenService;
 
 @RestController
 @RequestMapping(value = "/oauth/access-token")
@@ -16,7 +16,7 @@ public class TokenController {
     private ITokenService tokenService;
 
     @PostMapping("/exchange")
-    public AccessTokenDTO exchangeAccessToken(@RequestBody AccessTokenDTO shortLivedToken) {
+    public OAuthAccessTokenDTO exchangeAccessToken(@RequestBody OAuthAccessTokenDTO shortLivedToken) {
         return tokenService.exchangeForLongLivedToken(shortLivedToken);
     }
 }
