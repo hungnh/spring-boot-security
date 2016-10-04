@@ -1,6 +1,6 @@
 package uet.hungnh.oauth2.dto;
 
-public class OAuthAccessTokenDTO {
+public class AccessTokenDTO {
     private String token;
     private OAuthUserDTO user;
 

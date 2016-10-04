@@ -13,7 +13,6 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>oauth2-autoconfig</module>
         <module>oauth2-model</module>
         <module>oauth2-dto</module>
         <module>oauth2-provider</module>

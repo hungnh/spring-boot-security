@@ -6,27 +6,27 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
+import uet.hungnh.oauth2.common.service.IAccessTokenService;
+import uet.hungnh.oauth2.dto.AccessTokenDTO;
+import uet.hungnh.oauth2.dto.AccessTokenValidationResultDTO;
 import uet.hungnh.oauth2.dto.OAuthUserDTO;
 import uet.hungnh.oauth2.enums.OAuthProvider;
-import uet.hungnh.oauth2.facebook.api.FacebookUser;
-import uet.hungnh.oauth2.facebook.constant.OAuth2Constant;
-import uet.hungnh.oauth2.dto.OAuthAccessTokenDTO;
+import uet.hungnh.oauth2.enums.TokenValidationStatus;
 import uet.hungnh.oauth2.facebook.api.FacebookAccessToken;
-import uet.hungnh.oauth2.facebook.service.ITokenService;
+import uet.hungnh.oauth2.facebook.api.FacebookUser;
+import uet.hungnh.oauth2.facebook.constant.FacebookAPIConstant;
 import uet.hungnh.oauth2.model.entity.OAuthAccessToken;
 import uet.hungnh.oauth2.model.entity.OAuthUser;
 import uet.hungnh.oauth2.model.repo.OAuthAccessTokenRepository;
 import uet.hungnh.oauth2.model.repo.OAuthUserRepository;
 
-
-import java.net.URI;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
 @Service
 @Transactional(rollbackFor = Exception.class)
-public class TokenService implements ITokenService {
+public class FacebookAccessTokenService implements IAccessTokenService {
 
     @Autowired
     private RestTemplate restTemplate;
@@ -37,12 +37,11 @@ public class TokenService implements ITokenService {
     @Autowired
     private OAuthAccessTokenRepository oAuthAccessTokenRepository;
 
-    // TODO: GOOGLE:  https://developers.google.com/identity/protocols/OAuth2WebServer
 
     @Override
-    public OAuthAccessTokenDTO exchangeForLongLivedToken(OAuthAccessTokenDTO shortLivedToken) {
+    public AccessTokenValidationResultDTO validateAccessToken(AccessTokenDTO shortLivedToken) {
 
-        FacebookAccessToken longLivedToken = exchange(shortLivedToken);
+        FacebookAccessToken longLivedToken = exchangeForLongLivedToken(shortLivedToken);
         FacebookUser facebookUser = fetchUserProfile(longLivedToken);
 
         OAuthUser oAuthUser = new OAuthUser();
@@ -61,10 +60,14 @@ public class TokenService implements ITokenService {
         accessToken.setUser(oAuthUser);
         oAuthAccessTokenRepository.save(accessToken);
 
-        OAuthAccessTokenDTO responseToken = new OAuthAccessTokenDTO();
+        AccessTokenDTO responseToken = new AccessTokenDTO();
         responseToken.setToken(longLivedToken.getAccessToken());
         responseToken.setUser(mapper.map(oAuthUser, OAuthUserDTO.class));
-        return responseToken;
+
+        AccessTokenValidationResultDTO validationResult = new AccessTokenValidationResultDTO();
+        validationResult.setAccessToken(responseToken);
+        validationResult.setValidationStatus(TokenValidationStatus.VALID);
+        return validationResult;
     }
 
     private FacebookUser fetchUserProfile(FacebookAccessToken longLivedToken) {
@@ -73,12 +76,12 @@ public class TokenService implements ITokenService {
         params.put("access_token", longLivedToken.getAccessToken());
 
         return restTemplate.getForObject(
-                OAuth2Constant.FB_USER_PROFILE_URL_TEMPLATE,
+                FacebookAPIConstant.FB_USER_PROFILE_URL_TEMPLATE,
                 FacebookUser.class,
                 params);
     }
 
-    private FacebookAccessToken exchange(OAuthAccessTokenDTO shortLivedToken) {
+    private FacebookAccessToken exchangeForLongLivedToken(AccessTokenDTO shortLivedToken) {
 
         Map<String, String> params = new HashMap<>();
         params.put("client_id", "1113089908714345");
@@ -86,7 +89,7 @@ public class TokenService implements ITokenService {
         params.put("fb_exchange_token", shortLivedToken.getToken());
 
         return restTemplate.getForObject(
-                OAuth2Constant.FB_EXCHANGE_TOKEN_URL_TEMPLATE,
+                FacebookAPIConstant.FB_EXCHANGE_TOKEN_URL_TEMPLATE,
                 FacebookAccessToken.class,
                 params);
     }

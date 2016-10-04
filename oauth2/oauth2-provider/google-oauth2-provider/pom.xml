@@ -10,4 +10,12 @@
 
     <modelVersion>4.0.0</modelVersion>
     <artifactId>google-oauth2-provider</artifactId>
+
+    <dependencies>
+        <dependency>
+            <groupId>uet.hungnh</groupId>
+            <artifactId>common-oauth2-provider</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+    </dependencies>
 </project>

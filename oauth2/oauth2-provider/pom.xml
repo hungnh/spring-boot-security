@@ -15,6 +15,7 @@
     <modules>
         <module>facebook-oauth2-provider</module>
         <module>google-oauth2-provider</module>
+        <module>common-oauth2-provider</module>
     </modules>
 
 

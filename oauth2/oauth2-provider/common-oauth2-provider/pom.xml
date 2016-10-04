@@ -9,12 +9,22 @@
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>facebook-oauth2-provider</artifactId>
+    <artifactId>common-oauth2-provider</artifactId>
 
     <dependencies>
         <dependency>
             <groupId>uet.hungnh</groupId>
-            <artifactId>common-oauth2-provider</artifactId>
+            <artifactId>common-service</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>uet.hungnh</groupId>
+            <artifactId>oauth2-dto</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>uet.hungnh</groupId>
+            <artifactId>oauth2-model</artifactId>
             <version>1.0.0</version>
         </dependency>
     </dependencies>
