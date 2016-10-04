@@ -20,6 +20,7 @@
         <module>sample</module>
         <module>security</module>
         <module>mail-sender</module>
+        <module>oauth2</module>
     </modules>
 
     <properties>
