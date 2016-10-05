@@ -39,7 +39,7 @@ public class FacebookAccessTokenService implements IAccessTokenService {
 
 
     @Override
-    public AccessTokenValidationResultDTO validateAccessToken(AccessTokenDTO shortLivedToken) {
+    public AccessTokenValidationResultDTO exchange(AccessTokenDTO shortLivedToken) {
 
         FacebookAccessToken longLivedToken = exchangeForLongLivedToken(shortLivedToken);
         FacebookUser facebookUser = fetchUserProfile(longLivedToken);
@@ -71,6 +71,7 @@ public class FacebookAccessTokenService implements IAccessTokenService {
     }
 
     private FacebookUser fetchUserProfile(FacebookAccessToken longLivedToken) {
+
         Map<String, String> params = new HashMap<>();
         params.put("fields", "id,name,email,link,picture{url}");
         params.put("access_token", longLivedToken.getAccessToken());

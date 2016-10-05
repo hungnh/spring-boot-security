@@ -42,6 +42,11 @@
             <artifactId>facebook-oauth2-provider</artifactId>
             <version>1.0.0</version>
         </dependency>
+        <dependency>
+            <groupId>uet.hungnh</groupId>
+            <artifactId>google-oauth2-provider</artifactId>
+            <version>1.0.0</version>
+        </dependency>
         <!-- end :: oauth2 -->
 
         <!-- tag :: test -->

@@ -8,18 +8,17 @@ import org.springframework.web.bind.annotation.RestController;
 import uet.hungnh.oauth2.common.service.IAccessTokenService;
 import uet.hungnh.oauth2.dto.AccessTokenDTO;
 import uet.hungnh.oauth2.dto.AccessTokenValidationResultDTO;
+import uet.hungnh.oauth2.facebook.service.impl.FacebookAccessTokenService;
 
 @RestController
 @RequestMapping(value = "/oauth/facebook/access-token")
 public class FacebookAccessTokenController {
 
     @Autowired
-    private IAccessTokenService tokenService;
+    private FacebookAccessTokenService tokenService;
 
-    @PostMapping("/validate")
-    public AccessTokenValidationResultDTO validateAccessToken(@RequestBody AccessTokenDTO accessToken) {
-        return tokenService.validateAccessToken(accessToken); //TODO: frontend service request
-//
-//        https://www.googleapis.com/oauth2/v3/tokeninfo?access_token=ya29.Ci9yAz_AQRANt15u1n8L1cPE0SOpaIPgtK9El8C9epHjH-YazVucqmhH4CyeLEAJ7g
+    @PostMapping("/exchange")
+    public AccessTokenValidationResultDTO exchange(@RequestBody AccessTokenDTO accessToken) {
+        return tokenService.exchange(accessToken);
     }
 }
