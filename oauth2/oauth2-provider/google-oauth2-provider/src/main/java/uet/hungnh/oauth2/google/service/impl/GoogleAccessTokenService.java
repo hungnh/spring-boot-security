@@ -90,11 +90,11 @@ public class GoogleAccessTokenService implements IAccessTokenService {
     }
 
     private GoogleUserProfile fetchUserProfile(AccessTokenDTO accessToken, GoogleAccessTokenInfo accessTokenInfo) throws IOException {
+
         Map<String, String> params = new HashMap<>();
         params.put("user_id", accessTokenInfo.getUserId());
         params.put("access_token", accessToken.getToken());
         params.put("fields", "displayName,emails/value,id,image/url,url");
-        GoogleUserProfile userProfile = new GoogleUserProfile();
 
         String userProfileJson = restTemplate.getForObject(
                 GoogleAPIConstant.GOOGLE_USER_PROFILE_URL_TEMPLATE,
@@ -102,11 +102,14 @@ public class GoogleAccessTokenService implements IAccessTokenService {
                 params);
 
         JsonNode root = jacksonObjectMapper.readTree(userProfileJson);
+
+        GoogleUserProfile userProfile = new GoogleUserProfile();
         userProfile.setId(root.get("id").asText());
         userProfile.setDisplayName(root.get("displayName").asText());
         userProfile.setUrl(root.get("url").asText());
         userProfile.setImage(root.get("image").get("url").asText());
         userProfile.setEmail(root.get("emails").get(0).get("value").asText());
+
         return userProfile;
     }
 
