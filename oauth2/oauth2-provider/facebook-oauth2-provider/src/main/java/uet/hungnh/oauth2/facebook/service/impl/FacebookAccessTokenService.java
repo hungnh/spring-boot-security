@@ -3,6 +3,7 @@ package uet.hungnh.oauth2.facebook.service.impl;
 import ma.glasnost.orika.MapperFacade;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
@@ -37,6 +38,11 @@ public class FacebookAccessTokenService implements IAccessTokenService {
     @Autowired
     private OAuthAccessTokenRepository oAuthAccessTokenRepository;
 
+    @Value("${social.facebook.app-id}")
+    private String appId;
+
+    @Value("${social.facebook.app-secret}")
+    private String appSecret;
 
     @Override
     public AccessTokenValidationResultDTO exchange(AccessTokenDTO shortLivedToken) {
@@ -85,8 +91,8 @@ public class FacebookAccessTokenService implements IAccessTokenService {
     private FacebookAccessToken exchangeForLongLivedToken(AccessTokenDTO shortLivedToken) {
 
         Map<String, String> params = new HashMap<>();
-        params.put("client_id", "1113089908714345");
-        params.put("client_secret", "b09f2c05e1f720dd2f56cddf7765aa2d");
+        params.put("client_id", appId);
+        params.put("client_secret", appSecret);
         params.put("fb_exchange_token", shortLivedToken.getToken());
 
         return restTemplate.getForObject(

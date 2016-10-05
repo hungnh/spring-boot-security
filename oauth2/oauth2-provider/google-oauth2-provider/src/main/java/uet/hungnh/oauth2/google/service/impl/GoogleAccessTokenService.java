@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import ma.glasnost.orika.MapperFacade;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
@@ -43,6 +44,12 @@ public class GoogleAccessTokenService implements IAccessTokenService {
     @Autowired
     private OAuthAccessTokenRepository oAuthAccessTokenRepository;
 
+    @Value("${social.google.app-id}")
+    private String appId;
+
+    @Value("${social.google.app-secret}")
+    private String appSecret;
+
     @Override
     public AccessTokenValidationResultDTO exchange(AccessTokenDTO accessToken) throws IOException {
 
@@ -55,7 +62,7 @@ public class GoogleAccessTokenService implements IAccessTokenService {
         }
 
         GoogleAccessTokenInfo accessTokenInfo = jacksonObjectMapper.readValue(validationResponse, GoogleAccessTokenInfo.class);
-        if (!accessTokenInfo.getAppId().equals("988472407535-5h3tjhtk1a8l3qpu7aics6qjfdsaqdb3.apps.googleusercontent.com")) {
+        if (!accessTokenInfo.getAppId().equals(appId)) {
             validationResultDTO.setValidationStatus(TokenValidationStatus.INVALID);
             return validationResultDTO;
         }
