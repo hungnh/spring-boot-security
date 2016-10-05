@@ -19,5 +19,7 @@ public class FacebookAccessTokenController {
     @PostMapping("/validate")
     public AccessTokenValidationResultDTO validateAccessToken(@RequestBody AccessTokenDTO accessToken) {
         return tokenService.validateAccessToken(accessToken); //TODO: frontend service request
+//
+//        https://www.googleapis.com/oauth2/v3/tokeninfo?access_token=ya29.Ci9yAz_AQRANt15u1n8L1cPE0SOpaIPgtK9El8C9epHjH-YazVucqmhH4CyeLEAJ7g
     }
 }
