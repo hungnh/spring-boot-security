@@ -53,18 +53,18 @@ public class GoogleAccessTokenService implements IAccessTokenService {
     @Override
     public AccessTokenValidationResultDTO exchange(AccessTokenDTO accessToken) throws IOException {
 
-        AccessTokenValidationResultDTO validationResultDTO = new AccessTokenValidationResultDTO();
+        AccessTokenValidationResultDTO validationResult = new AccessTokenValidationResultDTO();
 
         String validationResponse = validateAccessToken(accessToken);
         if (validationResponse.contains("error_description")) {
-            validationResultDTO.setValidationStatus(TokenValidationStatus.INVALID);
-            return validationResultDTO;
+            validationResult.setValidationStatus(TokenValidationStatus.INVALID);
+            return validationResult;
         }
 
         GoogleAccessTokenInfo accessTokenInfo = jacksonObjectMapper.readValue(validationResponse, GoogleAccessTokenInfo.class);
         if (!accessTokenInfo.getAppId().equals(appId)) {
-            validationResultDTO.setValidationStatus(TokenValidationStatus.INVALID);
-            return validationResultDTO;
+            validationResult.setValidationStatus(TokenValidationStatus.INVALID);
+            return validationResult;
         }
 
         GoogleUserProfile userProfile = fetchUserProfile(accessToken, accessTokenInfo);
@@ -89,7 +89,6 @@ public class GoogleAccessTokenService implements IAccessTokenService {
         responseToken.setToken(accessToken.getToken());
         responseToken.setUser(mapper.map(userEntity, OAuthUserDTO.class));
 
-        AccessTokenValidationResultDTO validationResult = new AccessTokenValidationResultDTO();
         validationResult.setAccessToken(responseToken);
         validationResult.setValidationStatus(TokenValidationStatus.VALID);
 
