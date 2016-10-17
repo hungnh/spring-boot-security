@@ -19,8 +19,8 @@ public class SampleController {
     private ISampleService sampleService;
 
     @GetMapping
-    public String sample() {
-        return "Sample OK!";
+    public String sample() throws InterruptedException {
+        return sampleService.sample();
     }
 
     @PostMapping

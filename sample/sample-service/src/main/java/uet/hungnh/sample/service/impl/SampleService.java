@@ -21,6 +21,12 @@ public class SampleService implements ISampleService {
     private MapperFacade mapper;
 
     @Override
+    public String sample() throws InterruptedException {
+        Thread.sleep(2000L);
+        return "SAMPLE OK";
+    }
+
+    @Override
     public SampleDTO create(SampleDTO sampleDTO) {
         Sample sample = mapper.map(sampleDTO, Sample.class);
         sampleRepository.save(sample);

@@ -9,21 +9,19 @@ import uet.hungnh.security.dto.TokenDTO;
 import uet.hungnh.security.service.ILoginService;
 import uet.hungnh.security.service.ITokenService;
 
+import java.util.UUID;
+
 @Service
 @Transactional(rollbackFor = Exception.class)
 public class LoginService implements ILoginService {
 
     @Autowired
     private ITokenService tokenService;
-    @Autowired
-    private ISecurityContextFacade securityContext;
 
     @Override
     public TokenDTO login() {
-        UsernamePasswordAuthenticationToken auth = (UsernamePasswordAuthenticationToken) securityContext.getAuthentication();
-        String authToken = tokenService.generateNewToken();
-        auth.setDetails(authToken);
-        tokenService.store(authToken, auth);
+        String authToken = UUID.randomUUID().toString();
+        tokenService.store(authToken);
         return new TokenDTO(authToken);
     }
 }
