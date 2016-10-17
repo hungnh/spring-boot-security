@@ -7,6 +7,9 @@ import org.springframework.security.core.AuthenticationException;
 import uet.hungnh.security.auth.AuthenticationWithToken;
 import uet.hungnh.security.service.ITokenService;
 
+import java.time.Instant;
+import java.util.Date;
+
 public class TokenAuthenticationProvider implements AuthenticationProvider {
 
     private ITokenService tokenService;
@@ -25,17 +28,18 @@ public class TokenAuthenticationProvider implements AuthenticationProvider {
             throw new BadCredentialsException("Invalid token!");
         }
 
-        Authentication preAuthenticatedToken = tokenService.retrieve(token);
-        if (preAuthenticatedToken == null) {
+        AuthenticationWithToken authenticationWithToken = tokenService.retrieve(token);
+        if (authenticationWithToken == null) {
             throw new BadCredentialsException("Token is invalid or expired!");
         }
 
-        return new AuthenticationWithToken(
-                preAuthenticatedToken.getPrincipal(),
-                preAuthenticatedToken.getCredentials(),
-                preAuthenticatedToken.getAuthorities(),
-                token
-        );
+        Date now = Date.from(Instant.now());
+        Date expiredDate = authenticationWithToken.getExpiredDate();
+        if (expiredDate.before(now)) {
+            throw new BadCredentialsException("Token is expired!");
+        }
+
+        return authenticationWithToken;
     }
 
     @Override

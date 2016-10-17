@@ -18,6 +18,7 @@ import uet.hungnh.security.handler.TokenClearingLogoutHandler;
 import uet.hungnh.security.provider.TokenAuthenticationProvider;
 import uet.hungnh.security.service.ITokenService;
 import uet.hungnh.security.service.impl.InMemoryTokenService;
+import uet.hungnh.security.service.impl.PersistedTokenService;
 
 import static uet.hungnh.security.constants.SecurityConstant.LOGOUT_ENDPOINT;
 
@@ -68,7 +69,7 @@ public class TokenBasedSecurityConfig extends AbstractSecurityConfig {
 
     @Bean
     public ITokenService tokenService() {
-        return new InMemoryTokenService();
+        return new PersistedTokenService();
     }
 
     @Bean

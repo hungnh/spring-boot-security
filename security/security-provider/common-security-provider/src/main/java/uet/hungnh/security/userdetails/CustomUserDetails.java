@@ -23,6 +23,8 @@ public class CustomUserDetails extends User implements UserDetails {
         setFirstName(user.getFirstName());
         setLastName(user.getLastName());
         setPassword(user.getPassword());
+        setCreatedDate(user.getCreatedDate());
+        setUpdatedDate(user.getUpdatedDate());
     }
 
     @Override

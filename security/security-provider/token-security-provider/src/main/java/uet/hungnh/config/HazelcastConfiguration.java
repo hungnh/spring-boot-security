@@ -12,6 +12,7 @@ public class HazelcastConfiguration {
     @Bean
     public HazelcastInstance hazelcastInstance() {
         Config config = new Config();
+        config.setInstanceName("uet.hungnh.caching");
 
         GroupConfig groupConfig = config.getGroupConfig();
         groupConfig.setName("token-cache-group");
@@ -32,7 +33,7 @@ public class HazelcastConfiguration {
         MapConfig tokenMapConfig = new MapConfig();
         tokenMapConfig.setName("token-map");
         tokenMapConfig.setEvictionPolicy(EvictionPolicy.LRU);
-        tokenMapConfig.setTimeToLiveSeconds(10);
+        tokenMapConfig.setTimeToLiveSeconds(60 * 60);
         return tokenMapConfig;
     }
 }
