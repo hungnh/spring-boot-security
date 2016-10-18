@@ -25,11 +25,15 @@ public class HazelcastMemberConfiguration {
         groupConfig.setName("hz-caching-group");
         groupConfig.setPassword("123qweasd");
 
+        ManagementCenterConfig managementCenterConfig = config.getManagementCenterConfig();
+        managementCenterConfig.setEnabled(true);
+        managementCenterConfig.setUrl("http://192.168.1.18:8080/mancenter");
+
         NetworkConfig networkConfig = config.getNetworkConfig();
         JoinConfig joinConfig = networkConfig.getJoin();
         joinConfig.getMulticastConfig().setEnabled(false);
         joinConfig.getTcpIpConfig().setEnabled(true);
-        joinConfig.getTcpIpConfig().addMember("192.168.1.68");
+        joinConfig.getTcpIpConfig().addMember("192.168.1.18");
 
         config.addMapConfig(tokenMapConfig());
 
@@ -45,7 +49,7 @@ public class HazelcastMemberConfiguration {
     }
 
     @PreDestroy
-    public void stopAllInstances() {
+    public void shutdownAllInstances() {
         LOGGER.info("Shutting down all Hazelcast instances!");
         Hazelcast.shutdownAll();
     }

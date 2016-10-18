@@ -8,6 +8,8 @@ import com.hazelcast.core.HazelcastInstance;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import javax.annotation.PreDestroy;
+
 @Configuration
 public class HazelcastClientConfiguration {
     @Bean
@@ -20,8 +22,13 @@ public class HazelcastClientConfiguration {
         groupConfig.setPassword("123qweasd");
 
         ClientNetworkConfig networkConfig = clientConfig.getNetworkConfig();
-        networkConfig.addAddress("192.168.1.68");
+        networkConfig.addAddress("192.168.1.18");
 
         return HazelcastClient.newHazelcastClient(clientConfig);
+    }
+
+    @PreDestroy
+    public void shutdownAllClients() {
+        HazelcastClient.shutdownAll();
     }
 }
