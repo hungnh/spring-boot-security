@@ -17,6 +17,11 @@
             <artifactId>common-security-provider</artifactId>
             <version>1.0.0</version>
         </dependency>
+        <!--<dependency>-->
+            <!--<groupId>uet.hungnh</groupId>-->
+            <!--<artifactId>hazelcast-member-autoconfig</artifactId>-->
+            <!--<version>1.0.0</version>-->
+        <!--</dependency>-->
         <dependency>
             <groupId>uet.hungnh</groupId>
             <artifactId>hazelcast-client-autoconfig</artifactId>

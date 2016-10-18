@@ -30,7 +30,7 @@ public class PersistedTokenService implements ITokenService {
     @Override
     @Transactional(readOnly = false, rollbackFor = Exception.class)
     public AuthenticationWithToken store(String token) {
-        LOGGER.info("Store token: {}", token);
+        LOGGER.warn("Store token: {}", token);
         Authentication authentication = securityContext.getAuthentication();
         AuthToken authToken = persistToken(token, authentication);
 
@@ -54,7 +54,7 @@ public class PersistedTokenService implements ITokenService {
     @Override
     @Transactional(readOnly = true, rollbackFor = Exception.class)
     public AuthenticationWithToken retrieve(String token) {
-        LOGGER.info("Retrieving token: {}", token);
+        LOGGER.warn("Retrieving token: {}", token);
         AuthToken authToken = authTokenRepository.findOne(token);
         if (authToken == null) {
             return null;
