@@ -20,6 +20,14 @@
         </dependency>
         <!-- end :: model-->
 
+        <!-- tag :: dto-->
+        <dependency>
+            <groupId>uet.hungnh</groupId>
+            <artifactId>common-dto</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+        <!-- end :: dto-->
+
         <!-- tag :: Spring -->
         <dependency>
             <groupId>org.springframework.boot</groupId>

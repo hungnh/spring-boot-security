@@ -3,23 +3,18 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>security-provider</artifactId>
+        <artifactId>hazelcast-member</artifactId>
         <groupId>uet.hungnh</groupId>
         <version>1.0.0</version>
     </parent>
-    
+
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>token-security-provider</artifactId>
+    <artifactId>hazelcast-member-service</artifactId>
 
     <dependencies>
         <dependency>
             <groupId>uet.hungnh</groupId>
-            <artifactId>common-security-provider</artifactId>
-            <version>1.0.0</version>
-        </dependency>
-        <dependency>
-            <groupId>uet.hungnh</groupId>
-            <artifactId>hazelcast-client-autoconfig</artifactId>
+            <artifactId>hazelcast-member-autoconfig</artifactId>
             <version>1.0.0</version>
         </dependency>
     </dependencies>
