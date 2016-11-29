@@ -27,13 +27,13 @@ public class HazelcastMemberConfiguration {
 
         ManagementCenterConfig managementCenterConfig = config.getManagementCenterConfig();
         managementCenterConfig.setEnabled(true);
-        managementCenterConfig.setUrl("http://192.168.1.18:8080/mancenter");
+        managementCenterConfig.setUrl("http://127.0.0.1:8080/mancenter");
 
         NetworkConfig networkConfig = config.getNetworkConfig();
         JoinConfig joinConfig = networkConfig.getJoin();
         joinConfig.getMulticastConfig().setEnabled(false);
         joinConfig.getTcpIpConfig().setEnabled(true);
-        joinConfig.getTcpIpConfig().addMember("192.168.1.18");
+        joinConfig.getTcpIpConfig().addMember("127.0.0.1");
 
         config.addMapConfig(tokenMapConfig());
 

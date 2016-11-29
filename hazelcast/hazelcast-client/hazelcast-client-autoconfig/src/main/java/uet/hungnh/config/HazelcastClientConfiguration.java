@@ -22,7 +22,7 @@ public class HazelcastClientConfiguration {
         groupConfig.setPassword("123qweasd");
 
         ClientNetworkConfig networkConfig = clientConfig.getNetworkConfig();
-        networkConfig.addAddress("192.168.1.18");
+        networkConfig.addAddress("127.0.0.1");
 
         return HazelcastClient.newHazelcastClient(clientConfig);
     }
